@@ -1,4 +1,6 @@
 #include "Midi.hpp"
+#include "Mixer.hpp"
+#include "VolumeControl.hpp"
 
 // Midi codes should follow this guide: http://fmslogo.sourceforge.net/manual/midi-table.html
 namespace Midi {
@@ -72,9 +74,6 @@ namespace Midi {
 
 		_LOG("(MIDI) Pedal To Use: " << selectedPedal.pedalName << std::endl);
 
-		// Fill the list of Midi In, and Midi Out devices.
-		GetMidiDeviceNames();
-
 		// Find, and select, the devices that the user specified in their INI file.
 		FindMidiOutDevices(MidiOutDevice);
 		FindMidiInDevices(MidiInDevice);
@@ -82,6 +81,9 @@ namespace Midi {
 
 	void FindMidiOutDevices(std::string deviceToLookFor) {
 		_LOG_INIT;
+
+		// Fill the list of Midi In, and Midi Out devices.
+		GetMidiDeviceNames();
 
 		for (int device = 0; device < NumberOfOutPorts; device++) {
 
@@ -108,6 +110,11 @@ namespace Midi {
 	void FindMidiInDevices(std::string deviceToLookFor) {
 		_LOG_INIT;
 
+		// Fill the list of Midi In, and Midi Out devices.
+		GetMidiDeviceNames();
+
+		_LOG("(MIDI) Searching for MIDI IN device: '" << deviceToLookFor << "'" << std::endl);
+
 		for (int device = 0; device < NumberOfInPorts; device++) {
 
 			std::string deviceName = "";
@@ -118,9 +125,12 @@ namespace Midi {
 					break;
 				deviceName.push_back(midiInDevices.at(device).szPname[i]);
 			}
+
+			_LOG("(MIDI) MIDI IN Device detected: '" << deviceName << std::endl);
+
 			// We found the device that is specified in the INI.
 			if (deviceName.find(deviceToLookFor) != std::string::npos) {
-				_LOG("(MIDI) Connecting To Midi IN Device: " << midiInDevices.at(device).szPname << std::endl);
+				_LOG("(MIDI) Connecting To MIDI IN Device: " << midiInDevices.at(device).szPname << std::endl);
 				SelectedMidiInDevice = device;
 				break;
 			}
@@ -138,14 +148,17 @@ namespace Midi {
 		if (messageSize < 1) // Empty Message
 			return false;
 
-		switch (message->at(0)) {
+		const auto channel = message->at(0) & 0xF;
+		const auto command = (message->at(0) >> 4) * 16;
+
+		switch (command) {
 			case MidiCommands::NoteOff:
 				if (messageSize != 3) {
 					_LOG_SETLEVEL(LogLevel::Error);
 					_LOG("(MIDI IN) Invalid NoteOff" << std::endl);
 					return false;
 				}
-				_LOG("(MIDI IN) NoteOff. Key = " << (int)message->at(1) << ". Velocity = " << (int)message->at(2) << std::endl);
+				_LOG("(MIDI IN) NoteOff. Channel = " << channel << ". Key = " << (int)message->at(1) << ".Velocity = " << (int)message->at(2) << std::endl);
 				break;
 			case MidiCommands::NoteOn:
 				if (messageSize != 3) {
@@ -153,7 +166,7 @@ namespace Midi {
 					_LOG("(MIDI IN) Invalid NoteOn" << std::endl);
 					return false;
 				}
-				_LOG("(MIDI IN) NoteOn. Key = " << (int)message->at(1) << ". Velocity = " << (int)message->at(2) << std::endl);
+				_LOG("(MIDI IN) NoteOn. Channel = " << channel << ". Key = " << (int)message->at(1) << ". Velocity = " << (int)message->at(2) << std::endl);
 				break;
 			case MidiCommands::AfterTouch:
 				if (messageSize != 3) {
@@ -161,7 +174,7 @@ namespace Midi {
 					_LOG("(MIDI IN) Invalid AfterTouch" << std::endl);
 					return false;
 				}
-				_LOG("(MIDI IN) AfterTouch. Key = " << (int)message->at(1) << ". Touch = " << (int)message->at(2) << std::endl);
+				_LOG("(MIDI IN) AfterTouch. Channel = " << channel << ". Key = " << (int)message->at(1) << ". Touch = " << (int)message->at(2) << std::endl);
 				break;
 			case MidiCommands::CC:
 				if (messageSize != 3) {
@@ -170,11 +183,21 @@ namespace Midi {
 					return false;
 				}
 
-				_LOG("(MIDI IN) CC. Controller# = " << (int)message->at(1) << ". Value = " << std::dec << (int)message->at(2) << std::endl);
+				_LOG("(MIDI IN) CC. Channel = " << channel << ". Controller# = " << (int)message->at(1) << ". Value = " << std::dec << (int)message->at(2) << std::endl);
+
+				// Control song volume
+				if (channel == 1 && static_cast<int>(message->at(1)) == 0) {
+					const auto newVolume = ceil((int)message->at(2) / 127.f * 100.f);
+					VolumeControl::SetVolume(newVolume, "Mixer_Music");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 1;
+				}
 
 				// Current Midi In mod to test | Midi RR Speed > 100%
-				RiffRepeater::SetSpeed((message->at(2) * 2), true);
-				RiffRepeater::EnableTimeStretch();
+				//RiffRepeater::SetSpeed((message->at(2) * 2), true);
+				//RiffRepeater::EnableTimeStretch();
 
 				// Midi In Mod already tested | Controlling WAH with expression pedal.
 					//WwiseVariables::Wwise_Sound_SetRTPCValue_Char("Pedal_USWah_Auto", 1, 0x1234, 0, AkCurveInterpolation_Linear);
@@ -203,7 +226,7 @@ namespace Midi {
 					_LOG("(MIDI IN) Invalid PC" << std::endl);
 					return false;
 				}
-				_LOG("(MIDI IN) PC. Instrument# = " << (int)message->at(1) << std::endl);
+				_LOG("(MIDI IN) PC. Channel = " << channel << ". Instrument# = " << (int)message->at(1) << std::endl);
 				break;
 			case MidiCommands::Pressure:
 				if (messageSize != 2) {
@@ -211,7 +234,7 @@ namespace Midi {
 					_LOG("(MIDI IN) Invalid Pressure" << std::endl);
 					return false;
 				}
-				_LOG("(MIDI IN) Pressure. Pressure = " << (int)message->at(1) << std::endl);
+				_LOG("(MIDI IN) Pressure. Channel = " << channel << ". Pressure = " << (int)message->at(1) << std::endl);
 				break;
 			case MidiCommands::PitchBend: // Pitch Bend
 				if (messageSize != 3) {
@@ -219,7 +242,7 @@ namespace Midi {
 					_LOG("(MIDI IN) Invalid PitchBend" << std::endl);
 					return false;
 				}
-				_LOG("(MIDI IN) PitchBend. LSB = " << (int)message->at(1) << ". MSB = " << (int)message->at(2) << std::endl);
+				_LOG("(MIDI IN) PitchBend. Channel = " << channel << ". LSB = " << (int)message->at(1) << ". MSB = " << (int)message->at(2) << std::endl);
 				break;
 			default:
 				if (message->at(0) >= 0xF0) { // System Command

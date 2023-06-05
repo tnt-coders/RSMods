@@ -2870,8 +2870,8 @@
             // 
             // TabController
             // 
-            this.TabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.TabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TabController.Controls.Add(this.tab_Songlists);
             this.TabController.Controls.Add(this.tab_Keybindings);
@@ -3528,7 +3528,6 @@
             this.groupBox_MidiInDevice.TabIndex = 100005;
             this.groupBox_MidiInDevice.TabStop = false;
             this.groupBox_MidiInDevice.Text = "Midi In Device";
-            this.groupBox_MidiInDevice.Visible = false;
             // 
             // checkBox_EnabledMidiIn
             // 
@@ -4225,7 +4224,6 @@
             this.checkBox_ASIO_InputMic_EnableRefHack.TabIndex = 18;
             this.checkBox_ASIO_InputMic_EnableRefHack.Text = "Enable Ref Count Hack";
             this.checkBox_ASIO_InputMic_EnableRefHack.UseVisualStyleBackColor = true;
-            this.checkBox_ASIO_InputMic_EnableRefHack.CheckedChanged += ASIO_InputMic_EnableRefHack;
             // 
             // button_ASIO_InputMic_ClearSelection
             // 
@@ -4370,7 +4368,6 @@
             this.checkBox_ASIO_Output_EnableRefHack.TabIndex = 19;
             this.checkBox_ASIO_Output_EnableRefHack.Text = "Enable Ref Count Hack";
             this.checkBox_ASIO_Output_EnableRefHack.UseVisualStyleBackColor = true;
-            this.checkBox_ASIO_Output_EnableRefHack.CheckedChanged += ASIO_Output_EnableRefHack;
             // 
             // nUpDown_ASIO_Output_AltBaseChannel
             // 
@@ -4525,7 +4522,6 @@
             this.checkBox_ASIO_Input1_EnableRefHack.TabIndex = 17;
             this.checkBox_ASIO_Input1_EnableRefHack.Text = "Enable Ref Count Hack";
             this.checkBox_ASIO_Input1_EnableRefHack.UseVisualStyleBackColor = true;
-            this.checkBox_ASIO_Input1_EnableRefHack.CheckedChanged += ASIO_Input1_EnableRefHack;
             // 
             // button_ASIO_Input1_ClearSelection
             // 
@@ -4657,7 +4653,6 @@
             this.checkBox_ASIO_Input0_EnableRefHack.TabIndex = 16;
             this.checkBox_ASIO_Input0_EnableRefHack.Text = "Enable Ref Count Hack";
             this.checkBox_ASIO_Input0_EnableRefHack.UseVisualStyleBackColor = true;
-            this.checkBox_ASIO_Input0_EnableRefHack.CheckedChanged += ASIO_Input0_EnableRefHack;
             // 
             // button_ASIO_Input0_ClearSelection
             // 
@@ -6277,8 +6272,8 @@
             this.dgv_Profiles_Songlists.AllowUserToAddRows = false;
             this.dgv_Profiles_Songlists.AllowUserToDeleteRows = false;
             this.dgv_Profiles_Songlists.AllowUserToOrderColumns = true;
-            this.dgv_Profiles_Songlists.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dgv_Profiles_Songlists.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_Profiles_Songlists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Profiles_Songlists.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {

@@ -12,6 +12,7 @@
 
 
 namespace VolumeControl {
+	void SetVolume(float volume, std::string mixerSetting);
 	void IncreaseVolume(int amountToIncrease, std::string mixerToIncrease);
 	void DecreaseVolume(int amountToDecrease, std::string mixerToDecrease);
 	void MutePlayer(bool player2 = false);

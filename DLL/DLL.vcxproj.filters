@@ -512,6 +512,9 @@
     <ClInclude Include="Mods\TrueTuning.hpp">
       <Filter>Mods\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Mods\Mixer.hpp">
+      <Filter>Mods\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="xinput1_3.def">

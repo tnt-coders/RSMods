@@ -1,4 +1,5 @@
 #include "Main.hpp"
+#include "Mods/Mixer.hpp"
 
 #ifdef _DEBUG
 bool debug = true; // You ARE on a debug build.

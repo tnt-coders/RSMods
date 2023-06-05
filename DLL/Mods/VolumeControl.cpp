@@ -5,6 +5,38 @@
 /// </summary>
 /// <param name="amountToIncrease"> - How much should we increase by?</param>
 /// <param name="mixerToIncrease"> - Name of Mixer Value</param>
+void VolumeControl::SetVolume(float volume, std::string mixerSetting) {
+	_LOG_INIT;
+	_LOG_SETLEVEL(LogLevel::Error);
+
+	RTPCValue_type type = RTPCValue_GameObject;
+
+	// Mixer sent is not a valid mixer.
+	if (!MemHelpers::Contains(mixerSetting, mixerNames)) {
+		_LOG("That mixer doesn't exist" << std::endl);
+		return;
+	}
+
+	_LOG_SETLEVEL(LogLevel::Info);
+
+	// Clamp the volume between 0 and 100
+	if (volume < 0)
+		volume = 0.0f;
+	else if (volume > 100.f)
+		volume = 100.0f; // Incase the volume is within the amountToIncrease we can't throw it over 100.
+
+	// Set Volume
+	Wwise::SoundEngine::SetRTPCValue(mixerSetting.c_str(), (float)volume, AK_INVALID_GAME_OBJECT, 0, AkCurveInterpolation_Linear);
+	Wwise::SoundEngine::SetRTPCValue(mixerSetting.c_str(), (float)volume, 0x1234, 0, AkCurveInterpolation_Linear);
+
+	_LOG("Set volume of " << mixerSetting << " to " << volume << std::endl);
+}
+
+/// <summary>
+/// Increase Volume of Mixer's Backend
+/// </summary>
+/// <param name="amountToIncrease"> - How much should we increase by?</param>
+/// <param name="mixerToIncrease"> - Name of Mixer Value</param>
 void VolumeControl::IncreaseVolume(int amountToIncrease, std::string mixerToIncrease) {
 	_LOG_INIT;
 	_LOG_SETLEVEL(LogLevel::Error);
