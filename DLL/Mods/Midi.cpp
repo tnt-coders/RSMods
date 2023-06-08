@@ -1,4 +1,7 @@
 #include "Midi.hpp"
+
+#include "../Settings.hpp"
+
 #include "Mixer.hpp"
 #include "VolumeControl.hpp"
 
@@ -177,6 +180,7 @@ namespace Midi {
 				_LOG("(MIDI IN) AfterTouch. Channel = " << channel << ". Key = " << (int)message->at(1) << ". Touch = " << (int)message->at(2) << std::endl);
 				break;
 			case MidiCommands::CC:
+			{
 				if (messageSize != 3) {
 					_LOG_SETLEVEL(LogLevel::Error);
 					_LOG("(MIDI IN) Invalid CC" << std::endl);
@@ -185,14 +189,263 @@ namespace Midi {
 
 				_LOG("(MIDI IN) CC. Channel = " << channel << ". Controller# = " << (int)message->at(1) << ". Value = " << std::dec << (int)message->at(2) << std::endl);
 
-				// Control song volume
-				if (channel == 1 && static_cast<int>(message->at(1)) == 0) {
+				const auto volumeIncrement = Settings::GetModSetting("VolumeControlInterval");
+
+				// Increase Master Volume
+				// MIDI Channel 1, CC# 0, Value 0
+				if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 0) {
+					VolumeControl::IncreaseVolume(volumeIncrement, "Master_Volume");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 0;
+				}
+
+				// Decrease Master Volume
+				// MIDI Channel 1, CC# 0, Value 1
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 1) {
+					VolumeControl::DecreaseVolume(volumeIncrement, "Master_Volume");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 0;
+				}
+
+				// Increase Music Volume
+				// MIDI Channel 1, CC# 0, Value 2
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 2) {
+					VolumeControl::IncreaseVolume(volumeIncrement, "Mixer_Music");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 1;
+				}
+
+				// Decrease Music Volume
+				// MIDI Channel 1, CC# 0, Value 3
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 3) {
+					VolumeControl::DecreaseVolume(volumeIncrement, "Mixer_Music");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 1;
+				}
+
+				// Increase Player 1 Volume
+				// MIDI Channel 1, CC# 0, Value 4
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 4) {
+					VolumeControl::IncreaseVolume(volumeIncrement, "Mixer_Player1");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 2;
+				}
+
+				// Decrease Player 1 Volume
+				// MIDI Channel 1, CC# 0, Value 5
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 5) {
+					VolumeControl::DecreaseVolume(volumeIncrement, "Mixer_Player1");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 2;
+				}
+
+				// Increase Player 2 Volume
+				// MIDI Channel 1, CC# 0, Value 6
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 6) {
+					VolumeControl::IncreaseVolume(volumeIncrement, "Mixer_Player2");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 3;
+				}
+
+				// Decrease Player 2 Volume
+				// MIDI Channel 1, CC# 0, Value 7
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 7) {
+					VolumeControl::DecreaseVolume(volumeIncrement, "Mixer_Player2");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 3;
+				}
+
+				// Increase Mic Volume
+				// MIDI Channel 1, CC# 0, Value 8
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 8) {
+					VolumeControl::IncreaseVolume(volumeIncrement, "Mixer_Mic");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 4;
+				}
+
+				// Decrease Mic Volume
+				// MIDI Channel 1, CC# 0, Value 9
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 9) {
+					VolumeControl::DecreaseVolume(volumeIncrement, "Mixer_Mic");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 4;
+				}
+
+				// Increase Voice Over Volume
+				// MIDI Channel 1, CC# 0, Value 10
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 10) {
+					VolumeControl::IncreaseVolume(volumeIncrement, "Mixer_VO");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 5;
+				}
+
+				// Decrease Voice Over Volume
+				// MIDI Channel 1, CC# 0, Value 11
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 11) {
+					VolumeControl::DecreaseVolume(volumeIncrement, "Mixer_VO");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 5;
+				}
+
+				// Increase SFX Volume
+				// MIDI Channel 1, CC# 0, Value 12
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 12) {
+					VolumeControl::IncreaseVolume(volumeIncrement, "Mixer_SFX");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 6;
+				}
+
+				// Decrease SFX Volume
+				// MIDI Channel 1, CC# 0, Value 13
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 13) {
+					VolumeControl::DecreaseVolume(volumeIncrement, "Mixer_SFX");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 6;
+				}
+
+				// Mute player 1 volume
+				// MIDI Channel 1, CC# 0, Value 14
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 14) {
+					VolumeControl::MutePlayer();
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 2;
+				}
+
+				// Unmute player 1 volume
+				// MIDI Channel 1, CC# 0, Value 15
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 15) {
+					VolumeControl::UnmutePlayer();
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 2;
+				}
+
+				// Mute player 2 volume
+				// MIDI Channel 1, CC# 0, Value 16
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 16) {
+					VolumeControl::MutePlayer(true);
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 3;
+				}
+
+				// Unmute player 2 volume
+				// MIDI Channel 1, CC# 0, Value 17
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 0 && (int)message->at(2) == 17) {
+					VolumeControl::UnmutePlayer(true);
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 3;
+				}
+
+				// Control master volume with expression pedal
+				// MIDI Channel 1, CC# 1
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 1) {
+					const auto newVolume = ceil((int)message->at(2) / 127.f * 100.f);
+					VolumeControl::SetVolume(newVolume, "Master_Volume");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 0;
+				}
+
+				// Control song volume with expression pedal
+				// MIDI Channel 1, CC# 2
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 2) {
 					const auto newVolume = ceil((int)message->at(2) / 127.f * 100.f);
 					VolumeControl::SetVolume(newVolume, "Mixer_Music");
 
 					displayCurrentVolume = true;
 					displayVolumeStartTime = std::chrono::steady_clock::now();
 					currentVolumeIndex = 1;
+				}
+
+				// Control player 1 volume with expression pedal
+				// MIDI Channel 1, CC# 3
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 3) {
+					const auto newVolume = ceil((int)message->at(2) / 127.f * 100.f);
+					VolumeControl::SetVolume(newVolume, "Mixer_Player1");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 2;
+				}
+
+				// Control player 2 volume with expression pedal
+				// MIDI Channel 1, CC# 4
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 4) {
+					const auto newVolume = ceil((int)message->at(2) / 127.f * 100.f);
+					VolumeControl::SetVolume(newVolume, "Mixer_Player2");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 3;
+				}
+
+				// Control mic volume with expression pedal
+				// MIDI Channel 1, CC# 5
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 5) {
+					const auto newVolume = ceil((int)message->at(2) / 127.f * 100.f);
+					VolumeControl::SetVolume(newVolume, "Mixer_Mic");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 4;
+				}
+
+				// Control voice over volume with expression pedal
+				// MIDI Channel 1, CC# 6
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 6) {
+					const auto newVolume = ceil((int)message->at(2) / 127.f * 100.f);
+					VolumeControl::SetVolume(newVolume, "Mixer_VO");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 5;
+				}
+
+				// Control voice over volume with expression pedal
+				// MIDI Channel 1, CC# 7
+				else if (channel == 1 && static_cast<int>(message->at(1)) == 7) {
+					const auto newVolume = ceil((int)message->at(2) / 127.f * 100.f);
+					VolumeControl::SetVolume(newVolume, "Mixer_SFX");
+
+					displayCurrentVolume = true;
+					displayVolumeStartTime = std::chrono::steady_clock::now();
+					currentVolumeIndex = 6;
 				}
 
 				// Current Midi In mod to test | Midi RR Speed > 100%
@@ -220,6 +473,7 @@ namespace Midi {
 					//WwiseVariables::Wwise_Sound_SetRTPCValue_Char("Pedal_UKWah_Sens", ceil((int)message->at(2) / 127.f * 100.f), 0x1234, 0, AkCurveInterpolation_Linear);
 					//WwiseVariables::Wwise_Sound_SetRTPCValue_Char("Pedal_UKWah_Sens", ceil((int)message->at(2) / 127.f * 100.f), AK_INVALID_GAME_OBJECT, 0, AkCurveInterpolation_Linear);
 				break;
+			}
 			case MidiCommands::PC:
 				if (messageSize != 2) {
 					_LOG_SETLEVEL(LogLevel::Error);

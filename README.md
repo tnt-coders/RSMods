@@ -107,6 +107,41 @@
 * **Fix Oculus Crash**
   * When you try to open Rocksmith with a Oculus / Meta headset connected to your PC, it typically crashes. This mod tries to avoid the crash by preventing the bad code from running. It may also fix other audio-related crashes when Rocksmith opens.
 
+* **MIDI Mixer Control** 
+  * Mixer can now be controlled via a midi controller
+
+ * **Note:** MIDI channels start at 0, not 1 so make sure you configure your device to send to the correct channel.
+ 
+ * **Note 2:** Volume increment to increase/decrease by is configured in the RSMods user interface.
+
+|MIDI Channel|CC#|Value|Behavior|
+| ------------ | ------------ | ------------ | ------------ |
+|1|0|0|Increase Master Volume|
+|1|0|1|Decrease Master Volume|
+|1|0|2|Increase Music Volume|
+|1|0|3|Decrease Music Volume|
+|1|0|4|Increase Player 1 Volume|
+|1|0|5|Decrease Player 1 Volume|
+|1|0|6|Increase Player 2 Volume|
+|1|0|7|Decrease Player 2 Volume|
+|1|0|8|Increase Mic Volume|
+|1|0|9|Decrease Mic Volume|
+|1|0|10|Increase Voice Over Volume|
+|1|0|11|Decrease Voice Over Volume|
+|1|0|12|Increase SFX Volume|
+|1|0|13|Decrease SFX Volume|
+|1|0|14|Mute Player 1 Volume|
+|1|0|15|Unmute Player 1 Volume|
+|1|0|16|Mute Player 2 Volume|
+|1|0|17|Unmute Player 2 Volume|
+|1|1|0-127|Control Master Volume w/Expression Pedal|
+|1|2|0-127|Control Music Volume w/Expression Pedal|
+|1|3|0-127|Control Player 1 Volume w/Expression Pedal|
+|1|4|0-127|Control Player 2 Volume w/Expression Pedal|
+|1|5|0-127|Control Mic Volume w/Expression Pedal|
+|1|6|0-127|Control Voice Over Volume w/Expression Pedal|
+|1|7|0-127|Control SFX Volume w/Expression Pedal|
+
 * **Fast Load** - **GUI Only**
   * If you are running the game from an SSD or especially an NVMe SSD drive, you will enjoy this one - it skips the intro screens and lets you load the game in a matter of seconds. It can be fairly unstable, but in general it should work provided you don't try to use it on a good old mechanical HDD. This is not a DLL mod! This means that removing the DLL will not reverse the change of this mod, as you will need to restore the backup of your cache.psarc or verify your steam files.
   
@@ -131,7 +166,7 @@
   
 * **Backup Players Profile** - **GUI Only**
   * Everytime the RSMods GUI is opened, it will make a backup of your Rockmsith Player Profiles. This is automated process to help recover from profile corruptions. Profile backups can be found in "Rocksmith2014/Profile_Backups/MM-DD-YYYY_HH-mm-ss".
-  
+
 ## Installation:
 * There's two options as how this mod can be installed:
 1. Manually build/copy the DLL to the root folder of Rocksmith 2014 RM, create a file called RSMods.ini and fill it with options as [shown below](https://github.com/Lovrom8/RSMods#settings)
