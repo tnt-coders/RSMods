@@ -14,7 +14,7 @@ bool wwiseLogging = false; // You are NOT on a Wwise logging build.
 #endif
 
 #ifndef _RSMODS_VERSION
-#define _RSMODS_VERSION "RSMODS Version: 1.2.7.3 SRC. DEBUG: " << std::boolalpha << debug << ". Wwise Logs: " << std::boolalpha << wwiseLogging << "."
+#define _RSMODS_VERSION "RSMODS Version: 1.2.7.4 SRC. DEBUG: " << std::boolalpha << debug << ". Wwise Logs: " << std::boolalpha << wwiseLogging << "."
 #endif
 
 /// <summary>
@@ -1089,7 +1089,7 @@ bool HandleMessage(std::string currMsg, std::string type) {
 				currentRandomTexture = (int)urd(rng);
 
 				ERMode::customSolidColor.clear();
-				ERMode::customSolidColor.insert(ERMode::customSolidColor.begin(), randomTextureColors[currentRandomTexture].begin(), randomTextureColors[currentRandomTexture].end());
+				ERMode::customSolidColor.insert(ERMode::customSolidColor.begin(), 6, randomTextureColors[currentRandomTexture]);
 
 				//if(twitchUserDefinedTexture != NULL) //determine why this crashes if you send multiple in a row
 				//	twitchUserDefinedTexture->Release();
