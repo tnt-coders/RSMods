@@ -10,6 +10,12 @@
 #include "Lib/Ini/SimpleIni.h"
 #include "D3D/D3DHooks.hpp"
 
+// Extended range functionality
+enum class ER {
+	DISABLED,
+	ER1,
+	ER2
+};
 
 namespace Settings {
 	void Initialize(); // Default Settings
@@ -33,7 +39,9 @@ namespace Settings {
 	int GetVKCodeForString(std::string vkString);
 	// float GetStringColor(std::string);
 	std::vector<Color> GetStringColors(bool CB);
+	std::vector<Color> GetStringColors(ER erMode);
 	std::vector<Color> GetNoteColors(bool CB);
+	std::vector<Color> GetNoteColors(ER erMode);
 	void SetStringColors(int strIndex, Color c, bool CB);
 	void SetNoteColors(int strIndex, Color c, bool CB);
 	void UpdateSettings();
@@ -235,9 +243,11 @@ namespace Settings {
 	Color ConvertHexToColor(std::string hexStr);
 
 	inline std::vector<Color> customStringColorsNormal;
-	inline std::vector<Color> customStringColorsCB;
+	inline std::vector<Color> customStringColorsER1;
+	inline std::vector<Color> customStringColorsER2;
 	inline std::vector<Color> customNoteColorsNormal;
-	inline std::vector<Color> customNoteColorsCB;
+	inline std::vector<Color> customNoteColorsER1;
+	inline std::vector<Color> customNoteColorsER2;
 
 	inline bool async_UpdateMidiSettings = false;
 
@@ -245,7 +255,13 @@ namespace Settings {
 		"FF4F5A", "E2C102", "1DACF9", "FF9216", "3FCC0C", "C825ED", "0ABCB9", "909090"
 	};
 
-	inline std::vector<std::string> defaultStrColorsCB = {
+	inline std::vector<std::string> defaultStrColorsER1 = {
 		"C12A2A", "A3F400", "1DACF9", "DB7F41", "00C68E", "7648A8", "493647", "4C4C4C"
 	};
+
+	inline std::vector<std::string> defaultStrColorsER2 = {
+		"C12A2A", "A3F400", "1DACF9", "DB7F41", "00C68E", "7648A8", "493647", "4C4C4C"
+	};
+
+	inline ER extendedRange = ER::DISABLED;
 };

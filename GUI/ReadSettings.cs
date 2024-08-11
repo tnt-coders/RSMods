@@ -36,7 +36,8 @@ namespace RSMods
 
                              // String Colors
                              String0Color_N, String1Color_N, String2Color_N, String3Color_N, String4Color_N, String5Color_N,
-                             String0Color_CB, String1Color_CB, String2Color_CB, String3Color_CB, String4Color_CB, String5Color_CB,
+                             String0Color_ER1, String1Color_ER1, String2Color_ER1, String3Color_ER1, String4Color_ER1, String5Color_ER1,
+                             String0Color_ER2, String1Color_ER2, String2Color_ER2, String3Color_ER2, String4Color_ER2, String5Color_ER2,
                              SeparateNoteColorsMode,
                              Note0Color_N, Note1Color_N, Note2Color_N, Note3Color_N, Note4Color_N, Note5Color_N,
                              Note0Color_CB, Note1Color_CB, Note2Color_CB, Note3Color_CB, Note4Color_CB, Note5Color_CB,
@@ -116,7 +117,7 @@ namespace RSMods
             RainbowStringsEnabledIdentifier             = "RainbowStrings = ",
             RainbowNotesEnabledIdentifier               = "RainbowNotes = ",
             ExtendedRangeEnabledIdentifier              = "ExtendedRange = ",
-            ExtendedRangeDropTuningIdentifier           = "ExtendedRangeDropTuning = ",
+            ExtendedRange1DropTuningIdentifier          = "ExtendedRange1DropTuning = ",
             ExtendedRangeFixBassTuningIdentifier        = "ExtendedRangeFixBassTuning = ",
             CustomStringColorNumberIndetifier           = "CustomStringColors = ",
             SeparateNoteColorsIdentifier                = "SeparateNoteColors = ",
@@ -173,13 +174,20 @@ namespace RSMods
                 String3Color_N_Identifier = "string3_N = ",
                 String4Color_N_Identifier = "string4_N = ",
                 String5Color_N_Identifier = "string5_N = ",
-                // Colorblind String Colors
-                String0Color_CB_Identifier = "string0_CB = ",
-                String1Color_CB_Identifier = "string1_CB = ",
-                String2Color_CB_Identifier = "string2_CB = ",
-                String3Color_CB_Identifier = "string3_CB = ",
-                String4Color_CB_Identifier = "string4_CB = ",
-                String5Color_CB_Identifier = "string5_CB = ",
+                // ER1 String Colors
+                String0Color_ER1_Identifier = "string0_ER1 = ",
+                String1Color_ER1_Identifier = "string1_ER1 = ",
+                String2Color_ER1_Identifier = "string2_ER1 = ",
+                String3Color_ER1_Identifier = "string3_ER1 = ",
+                String4Color_ER1_Identifier = "string4_ER1 = ",
+                String5Color_ER1_Identifier = "string5_ER1 = ",
+                // ER2 String Colors
+                String0Color_ER2_Identifier = "string0_ER2 = ",
+                String1Color_ER2_Identifier = "string1_ER2 = ",
+                String2Color_ER2_Identifier = "string2_ER2 = ",
+                String3Color_ER2_Identifier = "string3_ER2 = ",
+                String4Color_ER2_Identifier = "string4_ER2 = ",
+                String5Color_ER2_Identifier = "string5_ER2 = ",
 
                 // Note Colors (Normal {N} & Colorblind {CB})
                 // Normal Note Colors
@@ -409,8 +417,8 @@ namespace RSMods
                     return FillSettingVariable(RainbowNotesEnabledIdentifier, SettingType.ON_OFF, currentLine, out RainbowNotesEnabled);
                 if (IdentifierIsFound(currentLine, ExtendedRangeEnabledIdentifier, identifierToGrab))
                     return FillSettingVariable(ExtendedRangeEnabledIdentifier, SettingType.ON_OFF, currentLine, out ExtendedRangeEnabled);
-                if (IdentifierIsFound(currentLine, ExtendedRangeDropTuningIdentifier, identifierToGrab))
-                    return FillSettingVariable(ExtendedRangeDropTuningIdentifier, SettingType.ON_OFF, currentLine, out ExtendedRangeDropTuning);
+                if (IdentifierIsFound(currentLine, ExtendedRange1DropTuningIdentifier, identifierToGrab))
+                    return FillSettingVariable(ExtendedRange1DropTuningIdentifier, SettingType.ON_OFF, currentLine, out ExtendedRangeDropTuning);
                 if (IdentifierIsFound(currentLine, ExtendedRangeFixBassTuningIdentifier, identifierToGrab))
                     return FillSettingVariable(ExtendedRangeFixBassTuningIdentifier, SettingType.ON_OFF, currentLine, out ExtendedRangeFixBassTuning);
                 if (IdentifierIsFound(currentLine, CustomStringColorNumberIndetifier, identifierToGrab))
@@ -522,19 +530,33 @@ namespace RSMods
                 if (IdentifierIsFound(currentLine, String5Color_N_Identifier, identifierToGrab))
                     return FillSettingVariable(String5Color_N_Identifier, SettingType.STRING, currentLine, out String5Color_N);
 
-                // Color Blind Colors
-                if (IdentifierIsFound(currentLine, String0Color_CB_Identifier, identifierToGrab))
-                    return FillSettingVariable(String0Color_CB_Identifier, SettingType.STRING, currentLine, out String0Color_CB);
-                if (IdentifierIsFound(currentLine, String1Color_CB_Identifier, identifierToGrab))
-                    return FillSettingVariable(String1Color_CB_Identifier, SettingType.STRING, currentLine, out String1Color_CB);
-                if (IdentifierIsFound(currentLine, String2Color_CB_Identifier, identifierToGrab))
-                    return FillSettingVariable(String2Color_CB_Identifier, SettingType.STRING, currentLine, out String2Color_CB);
-                if (IdentifierIsFound(currentLine, String3Color_CB_Identifier, identifierToGrab))
-                    return FillSettingVariable(String3Color_CB_Identifier, SettingType.STRING, currentLine, out String3Color_CB);
-                if (IdentifierIsFound(currentLine, String4Color_CB_Identifier, identifierToGrab))
-                    return FillSettingVariable(String4Color_CB_Identifier, SettingType.STRING, currentLine, out String4Color_CB);
-                if (IdentifierIsFound(currentLine, String5Color_CB_Identifier, identifierToGrab))
-                    return FillSettingVariable(String5Color_CB_Identifier, SettingType.STRING, currentLine, out String5Color_CB);
+                // ER1 Colors
+                if (IdentifierIsFound(currentLine, String0Color_ER1_Identifier, identifierToGrab))
+                    return FillSettingVariable(String0Color_ER1_Identifier, SettingType.STRING, currentLine, out String0Color_ER1);
+                if (IdentifierIsFound(currentLine, String1Color_ER1_Identifier, identifierToGrab))
+                    return FillSettingVariable(String1Color_ER1_Identifier, SettingType.STRING, currentLine, out String1Color_ER1);
+                if (IdentifierIsFound(currentLine, String2Color_ER1_Identifier, identifierToGrab))
+                    return FillSettingVariable(String2Color_ER1_Identifier, SettingType.STRING, currentLine, out String2Color_ER1);
+                if (IdentifierIsFound(currentLine, String3Color_ER1_Identifier, identifierToGrab))
+                    return FillSettingVariable(String3Color_ER1_Identifier, SettingType.STRING, currentLine, out String3Color_ER1);
+                if (IdentifierIsFound(currentLine, String4Color_ER1_Identifier, identifierToGrab))
+                    return FillSettingVariable(String4Color_ER1_Identifier, SettingType.STRING, currentLine, out String4Color_ER1);
+                if (IdentifierIsFound(currentLine, String5Color_ER1_Identifier, identifierToGrab))
+                    return FillSettingVariable(String5Color_ER1_Identifier, SettingType.STRING, currentLine, out String5Color_ER1);
+
+                // ER2 Colors
+                if (IdentifierIsFound(currentLine, String0Color_ER2_Identifier, identifierToGrab))
+                    return FillSettingVariable(String0Color_ER2_Identifier, SettingType.STRING, currentLine, out String0Color_ER2);
+                if (IdentifierIsFound(currentLine, String1Color_ER2_Identifier, identifierToGrab))
+                    return FillSettingVariable(String1Color_ER2_Identifier, SettingType.STRING, currentLine, out String1Color_ER2);
+                if (IdentifierIsFound(currentLine, String2Color_ER2_Identifier, identifierToGrab))
+                    return FillSettingVariable(String2Color_ER2_Identifier, SettingType.STRING, currentLine, out String2Color_ER2);
+                if (IdentifierIsFound(currentLine, String3Color_ER2_Identifier, identifierToGrab))
+                    return FillSettingVariable(String3Color_ER2_Identifier, SettingType.STRING, currentLine, out String3Color_ER2);
+                if (IdentifierIsFound(currentLine, String4Color_ER2_Identifier, identifierToGrab))
+                    return FillSettingVariable(String4Color_ER2_Identifier, SettingType.STRING, currentLine, out String4Color_ER2);
+                if (IdentifierIsFound(currentLine, String5Color_ER2_Identifier, identifierToGrab))
+                    return FillSettingVariable(String5Color_ER2_Identifier, SettingType.STRING, currentLine, out String5Color_ER2);
 
                 // Note Colors (Normal {N} & Colorblind {CB})
 

@@ -165,7 +165,7 @@ void ERMode::Toggle7StringMode() {
 				SetColors(pegsTuning, colorsPegsTuning);
 				break;
 			case 2: // User wants their own custom (ER) colors
-				SetColors(stringsEnabled, "Enabled_CB");
+				/*SetColors(stringsEnabled, "Enabled_CB");
 				SetColors(stringsGlow, "Glow_CB");
 				SetColors(stringsDisabled, "Disabled_CB");
 				SetColors(stringsText, "TextIndicator_CB");
@@ -173,7 +173,7 @@ void ERMode::Toggle7StringMode() {
 				SetColors(stringsPegInTune, "PegsInTune_CB");
 				SetColors(stringsPegNotInTune, "PegsOutTune_CB");
 				SetColors(stringsBodyNorm, "BodyNorm_CB");
-				SetColors(stringsBodyAcc, "BodyAcc_CB");
+				SetColors(stringsBodyAcc, "BodyAcc_CB");*/
 				break;
 			default:
 				break;
@@ -192,7 +192,7 @@ void ERMode::Toggle7StringMode() {
 		}
 
 		if (Settings::GetModSetting("CustomStringColors") == 2) { // User wants their own custom (non-ER) colors
-			SetColors(stringsEnabled, "Enabled_N");
+			/*SetColors(stringsEnabled, "Enabled_N");
 			SetColors(stringsGlow, "Glow_N");
 			SetColors(stringsDisabled, "Disabled_N");
 			SetColors(stringsText, "TextIndicator_N");
@@ -200,7 +200,7 @@ void ERMode::Toggle7StringMode() {
 			SetColors(stringsPegInTune, "PegsInTune_N");
 			SetColors(stringsPegNotInTune, "PegsOutTune_N");
 			SetColors(stringsBodyNorm, "BodyNorm_N");
-			SetColors(stringsBodyAcc, "BodyAcc_N");
+			SetColors(stringsBodyAcc, "BodyAcc_N");*/
 			//etc.
 		} // If not enabled, colors will auto-reset upon entering a song
 	}

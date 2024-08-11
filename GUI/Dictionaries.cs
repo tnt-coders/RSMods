@@ -50,9 +50,9 @@ namespace RSMods
 
             // Mods
             TooltipDictionary.Add(groupBox_HowToEnumerate, "Choose to Enumerate on key press,\nor automatically scan for changes every X seconds and start enumeration if a new file has been added.");
-            TooltipDictionary.Add(groupBox_ExtendedRangeWhen, "Mod is enabled when the lowest string is tuned to the note defined here.\nSee the Custom Colors - Color Blind mode for the colors that will be used while in ER mode.");
             TooltipDictionary.Add(groupBox_LoftOffWhen, "Turn the loft off via hotkey, as soon as the game starts up or only when in a song.");
-            TooltipDictionary.Add(radio_colorBlindERStringColors, "When ER mode is enabled, these are the colors that the strings will be changed to.");
+            TooltipDictionary.Add(radio_ER1StringColors, "When ER1 mode is enabled, these are the colors that the strings will be changed to.");
+            TooltipDictionary.Add(radio_ER2StringColors, "When ER2 mode is enabled, these are the colors that the strings will be changed to.");
             TooltipDictionary.Add(groupBox_ToggleSkylineWhen, "Turn the skyline (Purple and Orange DD level bars) as soon as the game starts up, or only when in a song.");
             TooltipDictionary.Add(groupBox_ToggleLyricsOffWhen, "How or when do you want the lyric display disabled, always, or toggled by a hotkey only?");
             TooltipDictionary.Add(radio_LyricsAlwaysOff, "Lyrics display will always be disabled in Learn-A-Song game mode.");
@@ -60,7 +60,6 @@ namespace RSMods
             TooltipDictionary.Add(checkBox_GuitarSpeakWhileTuning, "For Advanced Users Only!\nUse Guitar Speak in tuning menus.\nThis can potentially stop you from tuning, or playing songs if setup improperly.");
             TooltipDictionary.Add(groupBox_MidiAutoTuneDevice, "Select the MIDI device that goes to your drop tuning pedal.\nWe will send a signal to the pedal to try to automatically tune it.");
             TooltipDictionary.Add(checkBox_WhammyChordsMode, "If you are using the Whammy or Whammy Bass.\nAre you using the pedal in Chords Mode or Classic Mode.\nClassic Mode = UnChecked, Chords Mode = Checked.");
-            TooltipDictionary.Add(checkBox_ExtendedRangeDrop, "By default we require a song to be in standard to trigger Extended Range.\nTurn this on if you want drop tunings to also trigger Extended Range.\n(Ex: If you drop at B, but are playing Drop B, this checkbox will trigger Extended Range Mode)");
             TooltipDictionary.Add(groupBox_OnScreenFont, "If RSMods needs to show text in game, what font should we use?");
             TooltipDictionary.Add(groupBox_AutoLoadProfiles, "If you play with another person, but want to always load into your account this is the place for you.\nThis gets the same benefits of \"Autoload Last Used Profile\" but allows you to pick which profile will always load first");
             TooltipDictionary.Add(listBox_AutoLoadProfiles, "A list of all the profiles you have saved inside of Rocksmith 2014");
@@ -387,9 +386,9 @@ namespace RSMods
         #endregion
         #region Colors
 
-        public static Dictionary<bool, Dictionary<string, string>> stringColorButtonsToSettingIdentifiers = new Dictionary<bool, Dictionary<string, string>>()
+        public static Dictionary<int, Dictionary<string, string>> stringColorButtonsToSettingIdentifiers = new Dictionary<int, Dictionary<string, string>>()
         {
-            { true, new Dictionary<string, string> { // Normal Colors
+            { 0, new Dictionary<string, string> { // Normal Colors
             
                 {"E String", ReadSettings.String0Color_N_Identifier},
                 {"A String", ReadSettings.String1Color_N_Identifier},
@@ -399,14 +398,24 @@ namespace RSMods
                 {"e String", ReadSettings.String5Color_N_Identifier}
             }},
 
-            { false,  new Dictionary<string, string> { // Colorblind Colors
+            { 1,  new Dictionary<string, string> { // ER 1 Colors
             
-                {"E String", ReadSettings.String0Color_CB_Identifier},
-                {"A String", ReadSettings.String1Color_CB_Identifier},
-                {"D String", ReadSettings.String2Color_CB_Identifier},
-                {"G String", ReadSettings.String3Color_CB_Identifier},
-                {"B String", ReadSettings.String4Color_CB_Identifier},
-                {"e String", ReadSettings.String5Color_CB_Identifier}
+                {"E String", ReadSettings.String0Color_ER1_Identifier},
+                {"A String", ReadSettings.String1Color_ER1_Identifier},
+                {"D String", ReadSettings.String2Color_ER1_Identifier},
+                {"G String", ReadSettings.String3Color_ER1_Identifier},
+                {"B String", ReadSettings.String4Color_ER1_Identifier},
+                {"e String", ReadSettings.String5Color_ER1_Identifier}
+            }},
+
+            { 2,  new Dictionary<string, string> { // ER 2 Colors
+            
+                {"E String", ReadSettings.String0Color_ER2_Identifier},
+                {"A String", ReadSettings.String1Color_ER2_Identifier},
+                {"D String", ReadSettings.String2Color_ER2_Identifier},
+                {"G String", ReadSettings.String3Color_ER2_Identifier},
+                {"B String", ReadSettings.String4Color_ER2_Identifier},
+                {"e String", ReadSettings.String5Color_ER2_Identifier}
             }}
         };
 

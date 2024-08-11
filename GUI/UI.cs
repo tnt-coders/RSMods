@@ -551,11 +551,8 @@ namespace RSMods
             if (ReadSettings.ProcessSettings(ReadSettings.ExtendedRangeEnabledIdentifier) == "on") // Extended Range Enabled / Disabled
             {
                 checkBox_ExtendedRange.Checked = true;
-                groupBox_ExtendedRangeWhen.Visible = true;
-                listBox_ExtendedRangeTunings.Visible = true;
-
-                checkBox_ExtendedRangeDrop.Checked = ReadSettings.ProcessSettings(ReadSettings.ExtendedRangeDropTuningIdentifier) == "on";
             }
+
             if (ReadSettings.ProcessSettings(ReadSettings.CustomStringColorNumberIndetifier) != "0") // Custom String Colors
             {
                 checkBox_CustomColors.Checked = true;
@@ -693,7 +690,6 @@ namespace RSMods
             checkBox_EnableLooping.Checked = ReadSettings.ProcessSettings(ReadSettings.AllowLoopingIdentifier) == "on";
             groupBox_LoopingLeadUp.Visible = checkBox_EnableLooping.Checked;
             nUpDown_LoopingLeadUp.Value = GenUtil.EstablishMaxValue((GenUtil.StrToDecDef(ReadSettings.ProcessSettings(ReadSettings.LoopingLeadUpIdentifier), 0) / 1000), 5.000m);
-            listBox_ExtendedRangeTunings.SelectedIndex = (GenUtil.StrToIntDef(ReadSettings.ProcessSettings(ReadSettings.ExtendedRangeTuningIdentifier), 0) * -1) - 2; // Loads old ER tuning settings
             checkBox_GuitarSpeakWhileTuning.Checked = ReadSettings.ProcessSettings(ReadSettings.GuitarSpeakTuningIdentifier) == "on";
             checkBox_ChangeTheme.Checked = ReadSettings.ProcessSettings(ReadSettings.CustomGUIThemeIdentifier) == "on";
             checkBox_ScreenShotScores.Checked = ReadSettings.ProcessSettings(ReadSettings.ScreenShotScoresIdentifier) == "on";
@@ -708,7 +704,6 @@ namespace RSMods
             checkBox_CustomHighway.Checked = ReadSettings.ProcessSettings(ReadSettings.CustomHighwayColorsIdentifier) == "on";
             checkBox_SecondaryMonitor.Checked = ReadSettings.ProcessSettings(ReadSettings.SecondaryMonitorIdentifier) == "on";
             checkBox_NoteColors_UseRocksmithColors.Checked = ReadSettings.ProcessSettings(ReadSettings.SeparateNoteColorsModeIdentifier) == "1";
-            checkBox_FixBadBassTuning.Checked = ReadSettings.ProcessSettings(ReadSettings.ExtendedRangeFixBassTuningIdentifier) == "on";
             checkBox_RemoveSongPreviews.Checked = ReadSettings.ProcessSettings(ReadSettings.RemoveSongPreviewsIdentifier) == "on";
             checkBox_AllowAudioInBackground.Checked = ReadSettings.ProcessSettings(ReadSettings.AllowAudioInBackgroundIdentifier) == "on";
             checkBox_BypassTwoRTCMessageBox.Checked = ReadSettings.ProcessSettings(ReadSettings.BypassTwoRTCMessageBoxIdentifier) == "on";
@@ -1255,12 +1250,21 @@ namespace RSMods
                 AllowFullOpen = true,
                 ShowHelp = false
             };
-            bool isNormalStrings = radio_DefaultStringColors.Checked; // True = Normal, False = Colorblind
+
+            int stringColorKey = 0;
+            if (radio_ER1StringColors.Checked)
+            {
+                stringColorKey = 1;
+            }
+            else if (radio_ER2StringColors.Checked)
+            {
+                stringColorKey = 2;
+            }
             string stringColorButtonIdentifier = String.Empty;
             int stringNumber = 0;
             StringColors_FillStringNumberToColorDictionary();
 
-            foreach (KeyValuePair<string, string> stringColorButton in Dictionaries.stringColorButtonsToSettingIdentifiers[isNormalStrings])
+            foreach (KeyValuePair<string, string> stringColorButton in Dictionaries.stringColorButtonsToSettingIdentifiers[stringColorKey])
             {
                 if (sender.ToString().Contains(stringColorButton.Key.ToString()))
                 {
@@ -1313,28 +1317,46 @@ namespace RSMods
             }
         }
 
-        private void StringColors_LoadDefaultStringColors(bool colorBlind = false)
+        private void StringColors_LoadDefaultStringColors()
         {
             if (ReadSettings.ProcessSettings(ReadSettings.String0Color_N_Identifier) != String.Empty) // Fixes a small use case where the GUI moves faster than the writing of the INI.
             {
-                if (!colorBlind)
-                {
-                    textBox_String0Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_N_Identifier));
-                    textBox_String1Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_N_Identifier));
-                    textBox_String2Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_N_Identifier));
-                    textBox_String3Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_N_Identifier));
-                    textBox_String4Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_N_Identifier));
-                    textBox_String5Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_N_Identifier));
-                }
-                else
-                {
-                    textBox_String0Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_CB_Identifier));
-                    textBox_String1Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_CB_Identifier));
-                    textBox_String2Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_CB_Identifier));
-                    textBox_String3Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_CB_Identifier));
-                    textBox_String4Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_CB_Identifier));
-                    textBox_String5Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_CB_Identifier));
-                }
+                textBox_String0Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_N_Identifier));
+                textBox_String1Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_N_Identifier));
+                textBox_String2Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_N_Identifier));
+                textBox_String3Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_N_Identifier));
+                textBox_String4Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_N_Identifier));
+                textBox_String5Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_N_Identifier));
+            }
+            else
+                WriteSettings.WriteINI(WriteSettings.saveSettingsOrDefaults);
+        }
+
+        private void StringColors_LoadER1StringColors()
+        {
+            if (ReadSettings.ProcessSettings(ReadSettings.String0Color_ER1_Identifier) != String.Empty) // Fixes a small use case where the GUI moves faster than the writing of the INI.
+            {
+                textBox_String0Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_ER1_Identifier));
+                textBox_String1Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_ER1_Identifier));
+                textBox_String2Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_ER1_Identifier));
+                textBox_String3Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_ER1_Identifier));
+                textBox_String4Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_ER1_Identifier));
+                textBox_String5Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_ER1_Identifier));
+            }
+            else
+                WriteSettings.WriteINI(WriteSettings.saveSettingsOrDefaults);
+        }
+
+        private void StringColors_LoadER2StringColors()
+        {
+            if (ReadSettings.ProcessSettings(ReadSettings.String0Color_ER2_Identifier) != String.Empty) // Fixes a small use case where the GUI moves faster than the writing of the INI.
+            {
+                textBox_String0Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_ER2_Identifier));
+                textBox_String1Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_ER2_Identifier));
+                textBox_String2Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_ER2_Identifier));
+                textBox_String3Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_ER2_Identifier));
+                textBox_String4Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_ER2_Identifier));
+                textBox_String5Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_ER2_Identifier));
             }
             else
                 WriteSettings.WriteINI(WriteSettings.saveSettingsOrDefaults);
@@ -1369,7 +1391,9 @@ namespace RSMods
 
         private void StringColors_DefaultStringColors(object sender, EventArgs e) => StringColors_LoadDefaultStringColors();
 
-        private void StringColors_ColorBlindStringColors(object sender, EventArgs e) => StringColors_LoadDefaultStringColors(true);
+        private void StringColors_ER1StringColors(object sender, EventArgs e) => StringColors_LoadER1StringColors();
+
+        private void StringColors_ER2StringColors(object sender, EventArgs e) => StringColors_LoadER2StringColors();
 
         private void StringColors_DefaultNoteColors(object sender, EventArgs e) => StringColors_LoadDefaultNoteColors();
 
@@ -1457,55 +1481,76 @@ namespace RSMods
         }
         #endregion
         #region Set And Forget UI Functions
-        private void SetForget_SetTunerColors(int string_num = -1, bool extendedRange = false)
+        private void SetForget_SetTunerColors(int string_num = -1, int extendedRange = 0)
         {
             switch (string_num)
             {
                 case 0: // Set low E string color
-                    if (extendedRange)
-                        nUpDown_String0.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_CB_Identifier));
+                    if (extendedRange == 1)
+                        nUpDown_String0.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_ER1_Identifier));
+                    else if (extendedRange == 2)
+                        nUpDown_String0.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_ER2_Identifier));
                     else
                         nUpDown_String0.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_N_Identifier));
                     break;
                 case 1: // Set A string Color
-                    if (extendedRange)
-                        nUpDown_String1.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_CB_Identifier));
+                    if (extendedRange == 1)
+                        nUpDown_String1.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_ER1_Identifier));
+                    else if (extendedRange == 2)
+                        nUpDown_String1.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_ER2_Identifier));
                     else
                         nUpDown_String1.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_N_Identifier));
                     break;
                 case 2: // Set D string color
-                    if (extendedRange)
-                        nUpDown_String2.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_CB_Identifier));
+                    if (extendedRange == 1)
+                        nUpDown_String2.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_ER1_Identifier));
+                    else if (extendedRange == 1)
+                        nUpDown_String2.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_ER2_Identifier));
                     else
                         nUpDown_String2.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_N_Identifier));
                     break;
                 case 3: // Set G string color
-                    if (extendedRange)
-                        nUpDown_String3.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_CB_Identifier));
+                    if (extendedRange == 1)
+                        nUpDown_String3.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_ER1_Identifier));
+                    else if (extendedRange == 1)
+                        nUpDown_String3.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_ER2_Identifier));
                     else
                         nUpDown_String3.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_N_Identifier));
                     break;
                 case 4: // Set B string color
-                    if (extendedRange)
-                        nUpDown_String4.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_CB_Identifier));
+                    if (extendedRange == 1)
+                        nUpDown_String4.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_ER1_Identifier));
+                    else if (extendedRange == 2)
+                        nUpDown_String4.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_ER2_Identifier));
                     else
                         nUpDown_String4.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_N_Identifier));
                     break;
                 case 5: // Set high e string color
-                    if (extendedRange)
-                        nUpDown_String5.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_CB_Identifier));
+                    if (extendedRange == 1)
+                        nUpDown_String5.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_ER1_Identifier));
+                    else if (extendedRange == 2)
+                        nUpDown_String5.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_ER2_Identifier));
                     else
                         nUpDown_String5.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_N_Identifier));
                     break;
                 default: // Set all string colors
-                    if (extendedRange)
+                    if (extendedRange == 1)
                     {
-                        nUpDown_String0.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_CB_Identifier));
-                        nUpDown_String1.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_CB_Identifier));
-                        nUpDown_String2.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_CB_Identifier));
-                        nUpDown_String3.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_CB_Identifier));
-                        nUpDown_String4.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_CB_Identifier));
-                        nUpDown_String5.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_CB_Identifier));
+                        nUpDown_String0.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_ER1_Identifier));
+                        nUpDown_String1.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_ER1_Identifier));
+                        nUpDown_String2.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_ER1_Identifier));
+                        nUpDown_String3.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_ER1_Identifier));
+                        nUpDown_String4.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_ER1_Identifier));
+                        nUpDown_String5.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_ER1_Identifier));
+                    }
+                    else if (extendedRange == 2)
+                    {
+                        nUpDown_String0.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String0Color_ER2_Identifier));
+                        nUpDown_String1.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String1Color_ER2_Identifier));
+                        nUpDown_String2.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String2Color_ER2_Identifier));
+                        nUpDown_String3.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String3Color_ER2_Identifier));
+                        nUpDown_String4.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String4Color_ER2_Identifier));
+                        nUpDown_String5.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.String5Color_ER2_Identifier));
                     }
                     else
                     {
@@ -1971,7 +2016,7 @@ namespace RSMods
 
             // Change string color if the user if it would be "extended range" of that string.
             if (ReadSettings.ProcessSettings(ReadSettings.ExtendedRangeEnabledIdentifier) == "on" && int.Parse(ReadSettings.ProcessSettings(ReadSettings.ExtendedRangeTuningIdentifier)) >= ((NumericUpDown)sender).Value)
-                SetForget_SetTunerColors(stringNumber, true);
+                SetForget_SetTunerColors(stringNumber, 1);
             else
                 SetForget_SetTunerColors(stringNumber);
         }
@@ -2031,8 +2076,6 @@ namespace RSMods
         private void Save_ExtendedRange(object sender, EventArgs e)
         {
 
-            groupBox_ExtendedRangeWhen.Visible = checkBox_ExtendedRange.Checked;
-            listBox_ExtendedRangeTunings.Visible = checkBox_ExtendedRange.Checked;
             checkBox_CustomColors.Checked = checkBox_ExtendedRange.Checked;
 
             SaveSettings_Save(ReadSettings.ExtendedRangeEnabledIdentifier, checkBox_ExtendedRange.Checked.ToString().ToLower());
@@ -2109,9 +2152,6 @@ namespace RSMods
             if (radio_SkylineAlwaysOff.Checked)
                 SaveSettings_Save(ReadSettings.ToggleSkylineWhenIdentifier, "startup");
         }
-
-        private void Save_ExtendedRangeTuningAt(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.ExtendedRangeTuningIdentifier, Convert.ToString((listBox_ExtendedRangeTunings.SelectedIndex * -1) - 2));
-
         private void Delete_Keybind_MODS(object sender, EventArgs e)
         {
             textBox_NewKeyAssignment_MODS.Text = "";
@@ -2227,8 +2267,6 @@ namespace RSMods
         private void Save_SoftwarePedal(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.TuningPedalIdentifier, "4");
 
         private void Save_WhammyChordsMode(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.ChordsModeIdentifier, checkBox_WhammyChordsMode.Checked.ToString().ToLower());
-
-        private void Save_ExtendedRangeDrop(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.ExtendedRangeDropTuningIdentifier, checkBox_ExtendedRangeDrop.Checked.ToString().ToLower());
 
         private void Save_ShowCurrentNote(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.ShowCurrentNoteOnScreenIdentifier, checkBox_ShowCurrentNote.Checked.ToString().ToLower());
 
@@ -2431,8 +2469,6 @@ namespace RSMods
                 File.Move(Path.Combine(GenUtil.GetRSDirectory(), "xinput1_3.dll"), Path.Combine(GenUtil.GetRSDirectory(), "xinput1_3.dll.off"));
             }
         }
-
-        private void Save_ERFixBadBassTuning(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.ExtendedRangeFixBassTuningIdentifier, checkBox_FixBadBassTuning.Checked.ToString().ToLower());
 
         private void Save_RemoveSongPreviews(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.RemoveSongPreviewsIdentifier, checkBox_RemoveSongPreviews.Checked.ToString().ToLower());
 

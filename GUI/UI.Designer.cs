@@ -41,7 +41,6 @@
             this.textBox_NewSonglistName = new System.Windows.Forms.TextBox();
             this.checkBox_ExtendedRange = new System.Windows.Forms.CheckBox();
             this.label_RainbowStringsKey = new System.Windows.Forms.Label();
-            this.listBox_ExtendedRangeTunings = new System.Windows.Forms.ListBox();
             this.checkBox_ForceEnumeration = new System.Windows.Forms.CheckBox();
             this.checkBox_RemoveHeadstock = new System.Windows.Forms.CheckBox();
             this.checkBox_RemoveSkyline = new System.Windows.Forms.CheckBox();
@@ -58,9 +57,6 @@
             this.label_ForceEnumerationXMS = new System.Windows.Forms.Label();
             this.nUpDown_ForceEnumerationXMS = new System.Windows.Forms.NumericUpDown();
             this.groupBox_LoftOffWhen = new System.Windows.Forms.GroupBox();
-            this.groupBox_ExtendedRangeWhen = new System.Windows.Forms.GroupBox();
-            this.checkBox_FixBadBassTuning = new System.Windows.Forms.CheckBox();
-            this.checkBox_ExtendedRangeDrop = new System.Windows.Forms.CheckBox();
             this.groupBox_EnabledMods = new System.Windows.Forms.GroupBox();
             this.checkBox_CustomNSPTimer = new System.Windows.Forms.CheckBox();
             this.checkBox_FixBrokenTones = new System.Windows.Forms.CheckBox();
@@ -115,7 +111,8 @@
             this.textBox_String5Color = new System.Windows.Forms.TextBox();
             this.button_String5ColorButton = new System.Windows.Forms.Button();
             this.groupBox_StringColors = new System.Windows.Forms.GroupBox();
-            this.radio_colorBlindERStringColors = new System.Windows.Forms.RadioButton();
+            this.radio_ER1StringColors = new System.Windows.Forms.RadioButton();
+            this.radio_ER2StringColors = new System.Windows.Forms.RadioButton();
             this.radio_DefaultStringColors = new System.Windows.Forms.RadioButton();
             this.groupBox_SetAndForget = new System.Windows.Forms.GroupBox();
             this.tabControl_SetAndForget = new System.Windows.Forms.TabControl();
@@ -542,7 +539,6 @@
             this.groupBox_HowToEnumerate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUpDown_ForceEnumerationXMS)).BeginInit();
             this.groupBox_LoftOffWhen.SuspendLayout();
-            this.groupBox_ExtendedRangeWhen.SuspendLayout();
             this.groupBox_EnabledMods.SuspendLayout();
             this.groupBox_Songlist.SuspendLayout();
             this.groupBox_Keybindings_MODS.SuspendLayout();
@@ -779,28 +775,6 @@
             this.label_RainbowStringsKey.TabIndex = 28;
             this.label_RainbowStringsKey.Text = "Rainbow Strings: ";
             // 
-            // listBox_ExtendedRangeTunings
-            // 
-            this.listBox_ExtendedRangeTunings.FormattingEnabled = true;
-            this.listBox_ExtendedRangeTunings.Items.AddRange(new object[] {
-            "D",
-            "C#",
-            "C",
-            "B",
-            "A#",
-            "A",
-            "G#",
-            "G",
-            "F#",
-            "F",
-            "Octave Down"});
-            this.listBox_ExtendedRangeTunings.Location = new System.Drawing.Point(33, 45);
-            this.listBox_ExtendedRangeTunings.Name = "listBox_ExtendedRangeTunings";
-            this.listBox_ExtendedRangeTunings.Size = new System.Drawing.Size(79, 147);
-            this.listBox_ExtendedRangeTunings.TabIndex = 29;
-            this.listBox_ExtendedRangeTunings.Visible = false;
-            this.listBox_ExtendedRangeTunings.SelectedIndexChanged += new System.EventHandler(this.Save_ExtendedRangeTuningAt);
-            // 
             // checkBox_ForceEnumeration
             // 
             this.checkBox_ForceEnumeration.AutoSize = true;
@@ -1022,44 +996,6 @@
             this.groupBox_LoftOffWhen.Visible = false;
             this.groupBox_LoftOffWhen.MouseLeave += new System.EventHandler(this.ToolTips_Hide);
             this.groupBox_LoftOffWhen.MouseHover += new System.EventHandler(this.ToolTips_Show);
-            // 
-            // groupBox_ExtendedRangeWhen
-            // 
-            this.groupBox_ExtendedRangeWhen.Controls.Add(this.checkBox_FixBadBassTuning);
-            this.groupBox_ExtendedRangeWhen.Controls.Add(this.checkBox_ExtendedRangeDrop);
-            this.groupBox_ExtendedRangeWhen.Controls.Add(this.listBox_ExtendedRangeTunings);
-            this.groupBox_ExtendedRangeWhen.Location = new System.Drawing.Point(610, 16);
-            this.groupBox_ExtendedRangeWhen.Name = "groupBox_ExtendedRangeWhen";
-            this.groupBox_ExtendedRangeWhen.Size = new System.Drawing.Size(153, 268);
-            this.groupBox_ExtendedRangeWhen.TabIndex = 49;
-            this.groupBox_ExtendedRangeWhen.TabStop = false;
-            this.groupBox_ExtendedRangeWhen.Text = "Enable Extended Range When Low E Is";
-            this.groupBox_ExtendedRangeWhen.Visible = false;
-            this.groupBox_ExtendedRangeWhen.MouseLeave += new System.EventHandler(this.ToolTips_Hide);
-            this.groupBox_ExtendedRangeWhen.MouseHover += new System.EventHandler(this.ToolTips_Show);
-            // 
-            // checkBox_FixBadBassTuning
-            // 
-            this.checkBox_FixBadBassTuning.AutoSize = true;
-            this.checkBox_FixBadBassTuning.Location = new System.Drawing.Point(6, 228);
-            this.checkBox_FixBadBassTuning.Name = "checkBox_FixBadBassTuning";
-            this.checkBox_FixBadBassTuning.Size = new System.Drawing.Size(101, 17);
-            this.checkBox_FixBadBassTuning.TabIndex = 31;
-            this.checkBox_FixBadBassTuning.Text = "Fix Bass Tuning";
-            this.checkBox_FixBadBassTuning.UseVisualStyleBackColor = true;
-            this.checkBox_FixBadBassTuning.CheckedChanged += new System.EventHandler(this.Save_ERFixBadBassTuning);
-            // 
-            // checkBox_ExtendedRangeDrop
-            // 
-            this.checkBox_ExtendedRangeDrop.AutoSize = true;
-            this.checkBox_ExtendedRangeDrop.Location = new System.Drawing.Point(6, 205);
-            this.checkBox_ExtendedRangeDrop.Name = "checkBox_ExtendedRangeDrop";
-            this.checkBox_ExtendedRangeDrop.Size = new System.Drawing.Size(97, 17);
-            this.checkBox_ExtendedRangeDrop.TabIndex = 30;
-            this.checkBox_ExtendedRangeDrop.Text = "In Drop Tuning";
-            this.checkBox_ExtendedRangeDrop.UseVisualStyleBackColor = true;
-            this.checkBox_ExtendedRangeDrop.CheckedChanged += new System.EventHandler(this.Save_ExtendedRangeDrop);
-            this.checkBox_ExtendedRangeDrop.MouseHover += new System.EventHandler(this.ToolTips_Show);
             // 
             // groupBox_EnabledMods
             // 
@@ -1700,7 +1636,8 @@
             // 
             // groupBox_StringColors
             // 
-            this.groupBox_StringColors.Controls.Add(this.radio_colorBlindERStringColors);
+            this.groupBox_StringColors.Controls.Add(this.radio_ER1StringColors);
+            this.groupBox_StringColors.Controls.Add(this.radio_ER2StringColors);
             this.groupBox_StringColors.Controls.Add(this.radio_DefaultStringColors);
             this.groupBox_StringColors.Controls.Add(this.textBox_String5Color);
             this.groupBox_StringColors.Controls.Add(this.button_String5ColorButton);
@@ -1722,19 +1659,31 @@
             this.groupBox_StringColors.Text = "Change String Colors";
             this.groupBox_StringColors.Visible = false;
             // 
-            // radio_colorBlindERStringColors
+            // radio_ER1StringColors
             // 
-            this.radio_colorBlindERStringColors.AutoSize = true;
-            this.radio_colorBlindERStringColors.Location = new System.Drawing.Point(138, 14);
-            this.radio_colorBlindERStringColors.Name = "radio_colorBlindERStringColors";
-            this.radio_colorBlindERStringColors.Size = new System.Drawing.Size(138, 43);
-            this.radio_colorBlindERStringColors.TabIndex = 66;
-            this.radio_colorBlindERStringColors.TabStop = true;
-            this.radio_colorBlindERStringColors.Text = "Colorblind and \r\nExtended Range Mode \r\nColors";
-            this.radio_colorBlindERStringColors.UseVisualStyleBackColor = true;
-            this.radio_colorBlindERStringColors.CheckedChanged += new System.EventHandler(this.StringColors_ColorBlindStringColors);
-            this.radio_colorBlindERStringColors.MouseLeave += new System.EventHandler(this.ToolTips_Hide);
-            this.radio_colorBlindERStringColors.MouseHover += new System.EventHandler(this.ToolTips_Show);
+            this.radio_ER1StringColors.AutoSize = true;
+            this.radio_ER1StringColors.Location = new System.Drawing.Point(138, 14);
+            this.radio_ER1StringColors.Name = "radio_ER1StringColors";
+            this.radio_ER1StringColors.Size = new System.Drawing.Size(114, 17);
+            this.radio_ER1StringColors.TabIndex = 66;
+            this.radio_ER1StringColors.TabStop = true;
+            this.radio_ER1StringColors.Text = "Extended Range 1";
+            this.radio_ER1StringColors.UseVisualStyleBackColor = true;
+            this.radio_ER1StringColors.CheckedChanged += new System.EventHandler(this.StringColors_ER1StringColors);
+            this.radio_ER1StringColors.MouseLeave += new System.EventHandler(this.ToolTips_Hide);
+            this.radio_ER1StringColors.MouseHover += new System.EventHandler(this.ToolTips_Show);
+            // 
+            // radio_ER2StringColors
+            // 
+            this.radio_ER2StringColors.AutoSize = true;
+            this.radio_ER2StringColors.Location = new System.Drawing.Point(138, 37);
+            this.radio_ER2StringColors.Name = "radio_ER2StringColors";
+            this.radio_ER2StringColors.Size = new System.Drawing.Size(114, 17);
+            this.radio_ER2StringColors.TabIndex = 67;
+            this.radio_ER2StringColors.Text = "Extended Range 2";
+            this.radio_ER2StringColors.CheckedChanged += new System.EventHandler(this.StringColors_ER2StringColors);
+            this.radio_ER2StringColors.MouseLeave += new System.EventHandler(this.ToolTips_Hide);
+            this.radio_ER2StringColors.MouseHover += new System.EventHandler(this.ToolTips_Show);
             // 
             // radio_DefaultStringColors
             // 
@@ -3098,7 +3047,6 @@
             // 
             this.tabPage_ModSettings_ER.BackColor = System.Drawing.Color.Azure;
             this.tabPage_ModSettings_ER.Controls.Add(this.groupBox_NoteColors);
-            this.tabPage_ModSettings_ER.Controls.Add(this.groupBox_ExtendedRangeWhen);
             this.tabPage_ModSettings_ER.Controls.Add(this.groupBox_StringColors);
             this.tabPage_ModSettings_ER.Location = new System.Drawing.Point(4, 22);
             this.tabPage_ModSettings_ER.Name = "tabPage_ModSettings_ER";
@@ -6756,8 +6704,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nUpDown_ForceEnumerationXMS)).EndInit();
             this.groupBox_LoftOffWhen.ResumeLayout(false);
             this.groupBox_LoftOffWhen.PerformLayout();
-            this.groupBox_ExtendedRangeWhen.ResumeLayout(false);
-            this.groupBox_ExtendedRangeWhen.PerformLayout();
             this.groupBox_EnabledMods.ResumeLayout(false);
             this.groupBox_EnabledMods.PerformLayout();
             this.groupBox_Songlist.ResumeLayout(false);
@@ -6924,7 +6870,6 @@
         private System.Windows.Forms.TextBox textBox_NewSonglistName;
         private System.Windows.Forms.CheckBox checkBox_ExtendedRange;
         private System.Windows.Forms.Label label_RainbowStringsKey;
-        private System.Windows.Forms.ListBox listBox_ExtendedRangeTunings;
         private System.Windows.Forms.CheckBox checkBox_ForceEnumeration;
         private System.Windows.Forms.CheckBox checkBox_RemoveHeadstock;
         private System.Windows.Forms.CheckBox checkBox_RemoveSkyline;
@@ -6939,7 +6884,6 @@
         private System.Windows.Forms.RadioButton radio_ForceEnumerationAutomatic;
         private System.Windows.Forms.GroupBox groupBox_HowToEnumerate;
         private System.Windows.Forms.GroupBox groupBox_LoftOffWhen;
-        private System.Windows.Forms.GroupBox groupBox_ExtendedRangeWhen;
         private System.Windows.Forms.GroupBox groupBox_EnabledMods;
         private System.Windows.Forms.CheckBox checkBox_RemoveLaneMarkers;
         private System.Windows.Forms.GroupBox groupBox_Songlist;
@@ -6958,7 +6902,8 @@
         private System.Windows.Forms.TextBox textBox_String5Color;
         private System.Windows.Forms.Button button_String5ColorButton;
         private System.Windows.Forms.GroupBox groupBox_StringColors;
-        private System.Windows.Forms.RadioButton radio_colorBlindERStringColors;
+        private System.Windows.Forms.RadioButton radio_ER1StringColors;
+        private System.Windows.Forms.RadioButton radio_ER2StringColors;
         private System.Windows.Forms.RadioButton radio_DefaultStringColors;
         private System.Windows.Forms.NumericUpDown nUpDown_ForceEnumerationXMS;
         private System.Windows.Forms.Label label_ForceEnumerationXMS;
@@ -7091,7 +7036,6 @@
         private System.Windows.Forms.Label label_MidiWhatTuningPedalDoYouUse;
         private System.Windows.Forms.CheckBox checkBox_WhammyChordsMode;
         private System.Windows.Forms.Label label_SettingsSaved;
-        private System.Windows.Forms.CheckBox checkBox_ExtendedRangeDrop;
         private System.Windows.Forms.CheckBox checkBox_ShowCurrentNote;
         private System.Windows.Forms.CheckBox checkBox_RevealTwitchAuthToken;
         private System.Windows.Forms.GroupBox groupBox_Keybindings_AUDIO;
@@ -7309,7 +7253,6 @@
         private System.Windows.Forms.Button button_ReplaceMasterfulPerformance_98;
         private System.Windows.Forms.Button button_ReplaceFlawlessPerformance;
         private System.Windows.Forms.ProgressBar progressBar_RepackAudioPsarc;
-        private System.Windows.Forms.CheckBox checkBox_FixBadBassTuning;
         private System.Windows.Forms.Button button_ReplaceMasterfulPerformance_99;
         private System.Windows.Forms.TabControl tabControl_SetAndForget;
         private System.Windows.Forms.TabPage tabPage_SetAndForget_CustomTunings;

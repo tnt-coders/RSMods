@@ -319,11 +319,13 @@ void Settings::ReadStringColors() {
 
 	// Clear the previous string colors
 	customStringColorsNormal.clear();
-	customStringColorsCB.clear();
+	customStringColorsER1.clear();
+	customStringColorsER2.clear();
 	customNoteColorsNormal.clear();
-	customNoteColorsCB.clear();
+	customNoteColorsER1.clear();
+	customNoteColorsER2.clear();
 
-	// Loop throught the strings to make the code easier to read.
+	// Loop through the strings to make the code easier to read.
 	for (int stringIdx = 0; stringIdx < 6; stringIdx++) {
 		std::string strKey = "";
 		std::string val;
@@ -333,28 +335,40 @@ void Settings::ReadStringColors() {
 		val = reader.GetValue("String Colors", strKey.c_str(), defaultStrColors[stringIdx].c_str());
 		customStringColorsNormal.push_back(ConvertHexToColor(val));
 
-		// Read string colors (colorblind)
-		strKey = "string" + std::to_string(stringIdx) + "_CB";
-		val = reader.GetValue("String Colors", strKey.c_str(), defaultStrColorsCB[stringIdx].c_str());
-		customStringColorsCB.push_back(ConvertHexToColor(val));
+		// Read string colors (ER1)
+		strKey = "string" + std::to_string(stringIdx) + "_ER1";
+		val = reader.GetValue("String Colors", strKey.c_str(), defaultStrColorsER1[stringIdx].c_str());
+		customStringColorsER1.push_back(ConvertHexToColor(val));
+
+		// Read string colors (ER2)
+		strKey = "string" + std::to_string(stringIdx) + "_ER2";
+		val = reader.GetValue("String Colors", strKey.c_str(), defaultStrColorsER2[stringIdx].c_str());
+		customStringColorsER2.push_back(ConvertHexToColor(val));
 
 		// Read note colors (normal)
 		strKey = "note" + std::to_string(stringIdx) + "_N";
 		val = reader.GetValue("String Colors", strKey.c_str(), defaultStrColors[stringIdx].c_str());
 		customNoteColorsNormal.push_back(ConvertHexToColor(val));
 
-		// Read note colors (colorblind)
-		strKey = "note" + std::to_string(stringIdx) + "_CB";
-		val = reader.GetValue("String Colors", strKey.c_str(), defaultStrColorsCB[stringIdx].c_str());
-		customNoteColorsCB.push_back(ConvertHexToColor(val));
+		// Read note colors (ER1)
+		strKey = "note" + std::to_string(stringIdx) + "_ER1";
+		val = reader.GetValue("String Colors", strKey.c_str(), defaultStrColorsER1[stringIdx].c_str());
+		customNoteColorsER1.push_back(ConvertHexToColor(val));
+
+		// Read note colors (ER2)
+		strKey = "note" + std::to_string(stringIdx) + "_ER2";
+		val = reader.GetValue("String Colors", strKey.c_str(), defaultStrColorsER2[stringIdx].c_str());
+		customNoteColorsER2.push_back(ConvertHexToColor(val));
 	}
 
 	// Set the default colors for deactivated notes.
 	for (int stringIdx = 6; stringIdx < 8; stringIdx++) {
 		customStringColorsNormal.push_back(ConvertHexToColor(defaultStrColors[stringIdx]));
-		customStringColorsCB.push_back(ConvertHexToColor(defaultStrColorsCB[stringIdx]));
+		customStringColorsER1.push_back(ConvertHexToColor(defaultStrColorsER1[stringIdx]));
+		customStringColorsER2.push_back(ConvertHexToColor(defaultStrColorsER2[stringIdx]));
 		customNoteColorsNormal.push_back(ConvertHexToColor(defaultStrColors[stringIdx]));
-		customNoteColorsCB.push_back(ConvertHexToColor(defaultStrColorsCB[stringIdx]));
+		customNoteColorsER1.push_back(ConvertHexToColor(defaultStrColorsER1[stringIdx]));
+		customNoteColorsER2.push_back(ConvertHexToColor(defaultStrColorsER2[stringIdx]));
 	}
 }
 
@@ -547,10 +561,27 @@ float cSettings::GetStringColor(std::string string) {
 /// <param name="CB"> - colorblind or not</param>
 /// <returns>List of all string colors</returns>
 std::vector<Color> Settings::GetStringColors(bool CB) {
-	if (CB)
-		return customStringColorsCB;
-	else
+	switch (Settings::extendedRange)
+	{
+	case ER::ER1:
+		return customStringColorsER1;
+	case ER::ER2:
+		return customStringColorsER2;
+	default:
 		return customStringColorsNormal;
+	}
+}
+
+std::vector<Color> Settings::GetStringColors(ER erMode) {
+	switch (erMode)
+	{
+	case ER::ER1:
+		return customStringColorsER1;
+	case ER::ER2:
+		return customStringColorsER2;
+	default:
+		return customStringColorsNormal;
+	}
 }
 
 /// <summary>
@@ -559,12 +590,28 @@ std::vector<Color> Settings::GetStringColors(bool CB) {
 /// <param name="CB"> - colorblind or not</param>
 /// <returns>List of all note colors</returns>
 std::vector<Color> Settings::GetNoteColors(bool CB) {
-	if (CB)
-		return customNoteColorsCB;
-	else
+	switch (Settings::extendedRange)
+	{
+	case ER::ER1:
+		return customNoteColorsER1;
+	case ER::ER2:
+		return customNoteColorsER2;
+	default:
 		return customNoteColorsNormal;
+	}
 }
 
+std::vector<Color> Settings::GetNoteColors(ER erMode) {
+	switch (erMode)
+	{
+	case ER::ER1:
+		return customNoteColorsER1;
+	case ER::ER2:
+		return customNoteColorsER2;
+	default:
+		return customNoteColorsNormal;
+	}
+}
 
 /// <summary>
 /// Change string color in color list
@@ -573,10 +620,17 @@ std::vector<Color> Settings::GetNoteColors(bool CB) {
 /// <param name="c"> - new color</param>
 /// <param name="CB"> - colorblind or not</param>
 void Settings::SetStringColors(int strIndex, Color c, bool CB) {
-	if (CB)
-		customStringColorsCB[strIndex] = c;
-	else
+	switch (Settings::extendedRange)
+	{
+	case ER::ER1:
+		customStringColorsER1[strIndex] = c;
+		break;
+	case ER::ER2:
+		customStringColorsER2[strIndex] = c;
+		break;
+	default:
 		customStringColorsNormal[strIndex] = c;
+	}
 }
 
 /// <summary>
@@ -586,10 +640,17 @@ void Settings::SetStringColors(int strIndex, Color c, bool CB) {
 /// <param name="c"> - new color</param>
 /// <param name="CB"> - colorblind or not</param>
 void Settings::SetNoteColors(int strIndex, Color c, bool CB) {
-	if (CB)
-		customNoteColorsCB[strIndex] = c;
-	else
+	switch (Settings::extendedRange)
+	{
+	case ER::ER1:
+		customNoteColorsER1[strIndex] = c;
+		break;
+	case ER::ER2:
+		customNoteColorsER2[strIndex] = c;
+		break;
+	default:
 		customNoteColorsNormal[strIndex] = c;
+	}
 }
 
 /// <summary>

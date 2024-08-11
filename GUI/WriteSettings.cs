@@ -105,8 +105,8 @@ namespace RSMods
                     { ReadSettings.ForceReEnumerationEnabledIdentifier, CreateDefaultOnOldINI(ReadSettings.ForceReEnumerationEnabledIdentifier, "off") }, // Force ReEnumeration Manual / Automatic / Disabled
                     { ReadSettings.RainbowStringsEnabledIdentifier, CreateDefaultOnOldINI(ReadSettings.RainbowStringsEnabledIdentifier, "off") }, // Rainbow String Enabled / Disabled
                     { ReadSettings.RainbowNotesEnabledIdentifier, CreateDefaultOnOldINI(ReadSettings.RainbowNotesEnabledIdentifier, "off") }, // Rainbow Notes Enabled / Disabled
-                    { ReadSettings.ExtendedRangeEnabledIdentifier, CreateDefaultOnOldINI(ReadSettings.ExtendedRangeEnabledIdentifier, "off") }, // Extended Range Enabled / Disabled
-                    { ReadSettings.ExtendedRangeDropTuningIdentifier, CreateDefaultOnOldINI(ReadSettings.ExtendedRangeDropTuningIdentifier, "off") }, // Extended Range on Drop Tunings (Drop A, Drop B, etc)
+                    { ReadSettings.ExtendedRangeEnabledIdentifier, CreateDefaultOnOldINI(ReadSettings.ExtendedRangeEnabledIdentifier, "off") }, // Extended Range1 Enabled / Disabled
+                    { ReadSettings.ExtendedRange1DropTuningIdentifier, CreateDefaultOnOldINI(ReadSettings.ExtendedRange1DropTuningIdentifier, "off") }, // Extended Range on Drop Tunings (Drop A, Drop B, etc)
                     { ReadSettings.ExtendedRangeFixBassTuningIdentifier, CreateDefaultOnOldINI(ReadSettings.ExtendedRangeFixBassTuningIdentifier, "off") }, // Fix bad chart's tuning being wrong for strings 4 and 5.
                     { ReadSettings.CustomStringColorNumberIndetifier, CreateDefaultOnOldINI(ReadSettings.CustomStringColorNumberIndetifier, "0") }, // Custom String Colors (0 - Default, 1 - ZZ, 2 - Custom Colors)
                     { ReadSettings.SeparateNoteColorsIdentifier, CreateDefaultOnOldINI(ReadSettings.SeparateNoteColorsIdentifier, "off") }, // Should we use Separate Note Colors?
@@ -165,12 +165,19 @@ namespace RSMods
                     { ReadSettings.String4Color_N_Identifier, CreateDefaultOnOldINI(ReadSettings.String4Color_N_Identifier, "3fcc0c") }, // Default B String Color (HEX) | Green
                     { ReadSettings.String5Color_N_Identifier, CreateDefaultOnOldINI(ReadSettings.String5Color_N_Identifier, "c825ed") }, // Default High E String Color (HEX) | Purple
 
-                    { ReadSettings.String0Color_CB_Identifier, CreateDefaultOnOldINI(ReadSettings.String0Color_CB_Identifier, "00c68e") }, // Colorblind Low E String Color (HEX) | Red
-                    { ReadSettings.String1Color_CB_Identifier, CreateDefaultOnOldINI(ReadSettings.String1Color_CB_Identifier, "ff4f5a") }, // Colorblind A String Color (HEX) | Yellow
-                    { ReadSettings.String2Color_CB_Identifier, CreateDefaultOnOldINI(ReadSettings.String2Color_CB_Identifier, "e2c102") }, // Colorblind D String Color (HEX) | Blue
-                    { ReadSettings.String3Color_CB_Identifier, CreateDefaultOnOldINI(ReadSettings.String3Color_CB_Identifier, "1dacf9") }, // Colorblind G String Color (HEX) | Orange
-                    { ReadSettings.String4Color_CB_Identifier, CreateDefaultOnOldINI(ReadSettings.String4Color_CB_Identifier, "ff9216") }, // Colorblind B String Color (HEX) | Green
-                    { ReadSettings.String5Color_CB_Identifier, CreateDefaultOnOldINI(ReadSettings.String5Color_CB_Identifier, "3fcc0c") }, // Colorblind High E String Color (HEX) | Purple
+                    { ReadSettings.String0Color_ER1_Identifier, CreateDefaultOnOldINI(ReadSettings.String0Color_ER1_Identifier, "00c68e") }, // Colorblind Low E String Color (HEX) | Red
+                    { ReadSettings.String1Color_ER1_Identifier, CreateDefaultOnOldINI(ReadSettings.String1Color_ER1_Identifier, "ff4f5a") }, // Colorblind A String Color (HEX) | Yellow
+                    { ReadSettings.String2Color_ER1_Identifier, CreateDefaultOnOldINI(ReadSettings.String2Color_ER1_Identifier, "e2c102") }, // Colorblind D String Color (HEX) | Blue
+                    { ReadSettings.String3Color_ER1_Identifier, CreateDefaultOnOldINI(ReadSettings.String3Color_ER1_Identifier, "1dacf9") }, // Colorblind G String Color (HEX) | Orange
+                    { ReadSettings.String4Color_ER1_Identifier, CreateDefaultOnOldINI(ReadSettings.String4Color_ER1_Identifier, "ff9216") }, // Colorblind B String Color (HEX) | Green
+                    { ReadSettings.String5Color_ER1_Identifier, CreateDefaultOnOldINI(ReadSettings.String5Color_ER1_Identifier, "3fcc0c") }, // Colorblind High E String Color (HEX) | Purple
+
+                    { ReadSettings.String0Color_ER2_Identifier, CreateDefaultOnOldINI(ReadSettings.String0Color_ER2_Identifier, "ffffff") }, // Colorblind Low E String Color (HEX) | Red
+                    { ReadSettings.String1Color_ER2_Identifier, CreateDefaultOnOldINI(ReadSettings.String1Color_ER2_Identifier, "00c68e") }, // Colorblind A String Color (HEX) | Yellow
+                    { ReadSettings.String2Color_ER2_Identifier, CreateDefaultOnOldINI(ReadSettings.String2Color_ER2_Identifier, "ff4f5a") }, // Colorblind D String Color (HEX) | Blue
+                    { ReadSettings.String3Color_ER2_Identifier, CreateDefaultOnOldINI(ReadSettings.String3Color_ER2_Identifier, "e2c102") }, // Colorblind G String Color (HEX) | Orange
+                    { ReadSettings.String4Color_ER2_Identifier, CreateDefaultOnOldINI(ReadSettings.String4Color_ER2_Identifier, "1dacf9") }, // Colorblind B String Color (HEX) | Green
+                    { ReadSettings.String5Color_ER2_Identifier, CreateDefaultOnOldINI(ReadSettings.String5Color_ER2_Identifier, "ff9216") }, // Colorblind High E String Color (HEX) | Purple
 
                     { ReadSettings.Note0Color_N_Identifier, CreateDefaultOnOldINI(ReadSettings.Note0Color_N_Identifier, "ff4f5a") }, // Default Low E Note Color (HEX) | Red
                     { ReadSettings.Note1Color_N_Identifier, CreateDefaultOnOldINI(ReadSettings.Note1Color_N_Identifier, "e2c102") }, // Default A Note Color (HEX) | Yellow
