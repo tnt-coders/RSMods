@@ -11,12 +11,14 @@ void D3D::SetCustomColors() {
 		ColorMap customColorsFull;
 
 		// Get normal and colorblind colors.
-		ColorMap normalColors = GetCustomColors(strIdx, false);
-		ColorMap cbColors = GetCustomColors(strIdx, true);
+		ColorMap normalColors = GetCustomColors(strIdx, ER::DISABLED);
+		ColorMap er1Colors = GetCustomColors(strIdx, ER::ER1);
+		ColorMap er2Colors = GetCustomColors(strIdx, ER::ER2);
 
 		// Save Colors into ColorMap.
 		customColorsFull.insert(normalColors.begin(), normalColors.end());
-		customColorsFull.insert(cbColors.begin(), cbColors.end());
+		customColorsFull.insert(er1Colors.begin(), er1Colors.end());
+		customColorsFull.insert(er2Colors.begin(), er2Colors.end());
 
 		// Set Custom Colors
 		ERMode::SetCustomColors(strIdx, customColorsFull);
@@ -24,42 +26,49 @@ void D3D::SetCustomColors() {
 }
 
 /// <param name="strIdx"> - Current String thickest to thinnest (zero-indexed)</param>
-/// <param name="CB"> - Are we using colorblind colors?</param>
+/// <param name="erMode"> - Extended range mode</param>
 /// <returns>List of All Potential Colors for a String</returns>
-ColorMap D3D::GetCustomColors(int strIdx, bool CB) {
+ColorMap D3D::GetCustomColors(int strIdx, const ER& erMode) {
 	RSColor iniColor;
 	std::string ext;
 
-	if (CB)
-		ext = "_CB";
-	else
+	switch (erMode)
+	{
+	case ER::ER1:
+		ext = "_ER1";
+		break;
+	case ER::ER2:
+		ext = "_ER2";
+		break;
+	default:
 		ext = "_N";
+	}	
 
 	// Get user-defined string color
-	iniColor = Settings::GetStringColors(CB)[strIdx];
+	iniColor = Settings::GetStringColors(erMode)[strIdx];
 	int H;
 	float S, L;
 	CollectColors::RGB2HSL(iniColor.r, iniColor.g, iniColor.b, H, S, L);
 
 	// Create different colors from the user-defined color.
 	ColorMap customColors = {
-		{"Ambient" + ext, CollectColors::GetAmbientStringColor(H, CB)},
-		{"Disabled" + ext, CollectColors::GetDisabledStringColor(H, S, L, CB)},
+		{"Ambient" + ext, CollectColors::GetAmbientStringColor(H, true)},
+		{"Disabled" + ext, CollectColors::GetDisabledStringColor(H, S, L, true)},
 		{"Enabled" + ext, iniColor},
 		{"Glow" + ext, CollectColors::GetGlowStringColor(H)},
 		{"PegsTuning" + ext, CollectColors::GetTuningPegColor(H)},
 		{"PegsReset" + ext, CollectColors::GetPegResetColor()},
-		{"PegsSuccess" + ext, CollectColors::GetPegSuccessColor(CB)},
-		{"PegsInTune" + ext, CollectColors::GetPegInTuneColor(H, CB)},
+		{"PegsSuccess" + ext, CollectColors::GetPegSuccessColor(true)},
+		{"PegsInTune" + ext, CollectColors::GetPegInTuneColor(H, true)},
 		{"PegsOutTune" + ext, CollectColors::GetPegOutTuneColor()},
-		{"TextIndicator" + ext, CollectColors::GetRegTextIndicatorColor(H, CB)},
-		{"ForkParticles" + ext, CollectColors::GetRegForkParticlesColor(H, CB)},
-		{"NotewayNormal" + ext, CollectColors::GetNotewayNormalColor(H, S, L, CB)},
-		{"NotewayAccent" + ext, CollectColors::GetNotewayAccentColor(H, CB)},
-		{"NotewayPreview" + ext, CollectColors::GetNotewayPreviewColor(H, CB)},
-		{"GC_Main" + ext, CollectColors::GetGuitarcadeMainColor(H, strIdx, CB)},
-		{"GC_Add" + ext, CollectColors::GetGuitarcadeAdditiveColor(H, strIdx, CB)},
-		{"GC_UI" + ext, CollectColors::GetGuitarcadeUIColor(H, strIdx, CB)}
+		{"TextIndicator" + ext, CollectColors::GetRegTextIndicatorColor(H, true)},
+		{"ForkParticles" + ext, CollectColors::GetRegForkParticlesColor(H, true)},
+		{"NotewayNormal" + ext, CollectColors::GetNotewayNormalColor(H, S, L, true)},
+		{"NotewayAccent" + ext, CollectColors::GetNotewayAccentColor(H, true)},
+		{"NotewayPreview" + ext, CollectColors::GetNotewayPreviewColor(H, true)},
+		{"GC_Main" + ext, CollectColors::GetGuitarcadeMainColor(H, strIdx, true)},
+		{"GC_Add" + ext, CollectColors::GetGuitarcadeAdditiveColor(H, strIdx, true)},
+		{"GC_UI" + ext, CollectColors::GetGuitarcadeUIColor(H, strIdx, true)}
 	};
 
 	return customColors;
@@ -278,22 +287,38 @@ void D3D::GenerateTextures(IDirect3DDevice9* pDevice, TextureType type) {
 
 	// Generate Custom String color Texture
 	else if (type == Strings) {
-		ColorList colorsN = Settings::GetStringColors(false);
-		ColorList colorsCB = Settings::GetStringColors(true);
+		ColorList colors = Settings::GetStringColors(ER::DISABLED);
 
-		colorSet.insert(colorSet.begin(), colorsN.begin(), colorsN.end());
-		colorSet.insert(colorSet.end(), colorsCB.begin(), colorsCB.end());
+		switch (Settings::extendedRange)
+		{
+		case ER::ER1:
+			colors = Settings::GetStringColors(ER::ER1);
+			break;
+		case ER::ER2:
+			colors = Settings::GetStringColors(ER::ER2);
+		}
+
+		colorSet.insert(colorSet.begin(), colors.begin(), colors.end());
+		colorSet.insert(colorSet.end(), colors.begin(), colors.end());
 
 		GenerateTexture(pDevice, &customStringColorTexture, colorSet);
 	}
 
 	// Generate Custom Note color Texture
 	else if (type == Notes) {
-		ColorList colorsN = Settings::GetNoteColors(false);
-		ColorList colorsCB = Settings::GetNoteColors(true);
+		ColorList colors = Settings::GetNoteColors(ER::DISABLED);
 
-		colorSet.insert(colorSet.begin(), colorsN.begin(), colorsN.end());
-		colorSet.insert(colorSet.end(), colorsCB.begin(), colorsCB.end());
+		switch (Settings::extendedRange)
+		{
+		case ER::ER1:
+			colors = Settings::GetNoteColors(ER::ER1);
+			break;
+		case ER::ER2:
+			colors = Settings::GetNoteColors(ER::ER2);
+		}
+
+		colorSet.insert(colorSet.begin(), colors.begin(), colors.end());
+		colorSet.insert(colorSet.end(), colors.begin(), colors.end());
 
 		GenerateTexture(pDevice, &customNoteColorTexture, colorSet);
 	}

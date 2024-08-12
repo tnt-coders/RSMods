@@ -15,6 +15,8 @@
 #pragma comment (lib, "gdiplus.lib")
 #pragma once
 
+enum class ER;
+
 namespace D3D {
 	enum TextureType {
 		Random = 0,
@@ -27,7 +29,7 @@ namespace D3D {
 		FretNums = 7,
 	};
 
-	ColorMap GetCustomColors(int strIdx, bool CB);
+	ColorMap GetCustomColors(int strIdx, const ER& erMode);
 	void SetCustomColors();
 	HRESULT GenerateSolidTexture(IDirect3DDevice9* pDevice, IDirect3DTexture9** ppD3Dtex, DWORD colour32);
 	void GenerateTexture(IDirect3DDevice9* pDevice, IDirect3DTexture9** ppTexture, ColorList colorSet, UINT in_width = 256, UINT in_height = 128, int in_lineHeight = 8, int howManyLines = 16);

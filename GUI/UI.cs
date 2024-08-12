@@ -1362,28 +1362,16 @@ namespace RSMods
                 WriteSettings.WriteINI(WriteSettings.saveSettingsOrDefaults);
         }
 
-        private void StringColors_LoadDefaultNoteColors(bool colorBlind = false)
+        private void StringColors_LoadDefaultNoteColors()
         {
             if (ReadSettings.ProcessSettings(ReadSettings.Note0Color_N_Identifier) != String.Empty) // Fixes a small use case where the GUI moves faster than the writing of the INI.
             {
-                if (!colorBlind)
-                {
-                    textBox_Note0Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note0Color_N_Identifier));
-                    textBox_Note1Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note1Color_N_Identifier));
-                    textBox_Note2Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note2Color_N_Identifier));
-                    textBox_Note3Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note3Color_N_Identifier));
-                    textBox_Note4Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note4Color_N_Identifier));
-                    textBox_Note5Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note5Color_N_Identifier));
-                }
-                else
-                {
-                    textBox_Note0Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note0Color_CB_Identifier));
-                    textBox_Note1Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note1Color_CB_Identifier));
-                    textBox_Note2Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note2Color_CB_Identifier));
-                    textBox_Note3Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note3Color_CB_Identifier));
-                    textBox_Note4Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note4Color_CB_Identifier));
-                    textBox_Note5Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note5Color_CB_Identifier));
-                }
+                textBox_Note0Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note0Color_N_Identifier));
+                textBox_Note1Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note1Color_N_Identifier));
+                textBox_Note2Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note2Color_N_Identifier));
+                textBox_Note3Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note3Color_N_Identifier));
+                textBox_Note4Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note4Color_N_Identifier));
+                textBox_Note5Color.BackColor = ColorTranslator.FromHtml("#" + ReadSettings.ProcessSettings(ReadSettings.Note5Color_N_Identifier));
             }
             else
                 WriteSettings.WriteINI(WriteSettings.saveSettingsOrDefaults);
@@ -1396,8 +1384,6 @@ namespace RSMods
         private void StringColors_ER2StringColors(object sender, EventArgs e) => StringColors_LoadER2StringColors();
 
         private void StringColors_DefaultNoteColors(object sender, EventArgs e) => StringColors_LoadDefaultNoteColors();
-
-        private void StringColors_ColorBlindNoteColors(object sender, EventArgs e) => StringColors_LoadDefaultNoteColors(true);
 
         #endregion
         #region Noteway Colors
@@ -2421,7 +2407,7 @@ namespace RSMods
                 textBox_Note5Color.BackColor = DefaultBackColor;
             }
             else
-                StringColors_LoadDefaultNoteColors(radio_colorBlindERNoteColors.Checked);
+                StringColors_LoadDefaultNoteColors();
 
             radio_DefaultNoteColors.Enabled = !checkBox_NoteColors_UseRocksmithColors.Checked;
             radio_colorBlindERNoteColors.Enabled = !checkBox_NoteColors_UseRocksmithColors.Checked;

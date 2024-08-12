@@ -55,5 +55,6 @@ inline float roughLoopStart = NULL; // Just like loopStart, except we account fo
 inline float loopEnd = NULL; // The end of the loop, as specified by the user.
 
 inline std::string selectedUser = "";
+inline int generateTextureCounter = 0;
 
 bool Contains(std::string str, const char* key){ return str.find(key) != std::string::npos; }

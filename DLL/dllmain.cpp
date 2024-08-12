@@ -810,14 +810,6 @@ Wwise::SoundEngine::SetRTPCValue("P1_InputVol_Calibration_Return", NewInputVolum
 	ImGui::CaptureKeyboardFromApp(false);
 	ImGui::CaptureMouseFromApp(false);
 
-	// Regenerate string colors when the user changes their string colors in the GUI.
-	// Needed to have real-time textures.
-	if (generateTexture) {
-		D3D::GenerateTextures(pDevice, D3D::Strings);
-
-		generateTexture = false;
-	}
-
 	int whiteText = 0xFFFFFFFF;
 	Resolution WindowSize = MemHelpers::GetWindowSize();
 
@@ -995,6 +987,16 @@ Wwise::SoundEngine::SetRTPCValue("P1_InputVol_Calibration_Return", NewInputVolum
 				ERMode::customSolidColor.push_back(userDefColor);
 
 			D3DHooks::regenerateUserDefinedTexture = false;
+		}
+
+		// Regenerate string colors when the user changes their string colors in the GUI.
+		// Needed to have real-time textures.
+		if (generateTextureCounter++ > 1000) {
+			D3D::GenerateTextures(pDevice, D3D::Strings);
+			D3D::GenerateTextures(pDevice, D3D::Notes);
+
+			generateTextureCounter = 0;
+			generateTexture = false;
 		}
 	}
 	return hRet;

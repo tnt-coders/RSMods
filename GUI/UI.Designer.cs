@@ -3102,7 +3102,6 @@
             this.radio_colorBlindERNoteColors.TabStop = true;
             this.radio_colorBlindERNoteColors.Text = "Colorblind and \r\nExtended Range Mode \r\nColors";
             this.radio_colorBlindERNoteColors.UseVisualStyleBackColor = true;
-            this.radio_colorBlindERNoteColors.CheckedChanged += new System.EventHandler(this.StringColors_ColorBlindNoteColors);
             // 
             // radio_DefaultNoteColors
             // 

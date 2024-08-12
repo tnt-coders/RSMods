@@ -165,18 +165,36 @@ void ERMode::Toggle7StringMode() {
 				SetColors(pegsTuning, colorsPegsTuning);
 				break;
 			case 2: // User wants their own custom (ER) colors
-				/*SetColors(stringsEnabled, "Enabled_CB");
-				SetColors(stringsGlow, "Glow_CB");
-				SetColors(stringsDisabled, "Disabled_CB");
-				SetColors(stringsText, "TextIndicator_CB");
-				SetColors(pegsTuning, "PegsTuning_CB");
-				SetColors(stringsPegInTune, "PegsInTune_CB");
-				SetColors(stringsPegNotInTune, "PegsOutTune_CB");
-				SetColors(stringsBodyNorm, "BodyNorm_CB");
-				SetColors(stringsBodyAcc, "BodyAcc_CB");*/
+				if (Settings::extendedRange == ER::ER1)
+				{
+					SetColors(stringsEnabled, "Enabled_ER1");
+					SetColors(stringsGlow, "Glow_ER1");
+					SetColors(stringsDisabled, "Disabled_ER1");
+					SetColors(stringsText, "TextIndicator_ER1");
+					SetColors(pegsTuning, "PegsTuning_ER1");
+					SetColors(stringsPegInTune, "PegsInTune_ER1");
+					SetColors(stringsPegNotInTune, "PegsOutTune_ER1");
+					SetColors(stringsBodyNorm, "BodyNorm_ER1");
+					SetColors(stringsBodyAcc, "BodyAcc_ER1");
+				}
+				else if (Settings::extendedRange == ER::ER2)
+				{
+					SetColors(stringsEnabled, "Enabled_ER2");
+					SetColors(stringsGlow, "Glow_ER2");
+					SetColors(stringsDisabled, "Disabled_ER2");
+					SetColors(stringsText, "TextIndicator_ER2");
+					SetColors(pegsTuning, "PegsTuning_ER2");
+					SetColors(stringsPegInTune, "PegsInTune_ER2");
+					SetColors(stringsPegNotInTune, "PegsOutTune_ER2");
+					SetColors(stringsBodyNorm, "BodyNorm_ER2");
+					SetColors(stringsBodyAcc, "BodyAcc_ER2");
+				}
+				
 				break;
 			default:
 				break;
+
+			generateTexture = true;
 		}
 	}
 	else {

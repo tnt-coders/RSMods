@@ -558,20 +558,8 @@ float cSettings::GetStringColor(std::string string) {
 /// <summary>
 /// Get color list of strings
 /// </summary>
-/// <param name="CB"> - colorblind or not</param>
+/// <param name="erMode"> - extended range mode</param>
 /// <returns>List of all string colors</returns>
-std::vector<Color> Settings::GetStringColors(bool CB) {
-	switch (Settings::extendedRange)
-	{
-	case ER::ER1:
-		return customStringColorsER1;
-	case ER::ER2:
-		return customStringColorsER2;
-	default:
-		return customStringColorsNormal;
-	}
-}
-
 std::vector<Color> Settings::GetStringColors(ER erMode) {
 	switch (erMode)
 	{
@@ -587,20 +575,8 @@ std::vector<Color> Settings::GetStringColors(ER erMode) {
 /// <summary>
 /// Get color list of notes
 /// </summary>
-/// <param name="CB"> - colorblind or not</param>
+/// <param name="erMode"> - extended range mode</param>
 /// <returns>List of all note colors</returns>
-std::vector<Color> Settings::GetNoteColors(bool CB) {
-	switch (Settings::extendedRange)
-	{
-	case ER::ER1:
-		return customNoteColorsER1;
-	case ER::ER2:
-		return customNoteColorsER2;
-	default:
-		return customNoteColorsNormal;
-	}
-}
-
 std::vector<Color> Settings::GetNoteColors(ER erMode) {
 	switch (erMode)
 	{

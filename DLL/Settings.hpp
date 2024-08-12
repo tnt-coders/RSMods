@@ -38,9 +38,7 @@ namespace Settings {
 	// Functions
 	int GetVKCodeForString(std::string vkString);
 	// float GetStringColor(std::string);
-	std::vector<Color> GetStringColors(bool CB);
 	std::vector<Color> GetStringColors(ER erMode);
-	std::vector<Color> GetNoteColors(bool CB);
 	std::vector<Color> GetNoteColors(ER erMode);
 	void SetStringColors(int strIndex, Color c, bool CB);
 	void SetNoteColors(int strIndex, Color c, bool CB);
