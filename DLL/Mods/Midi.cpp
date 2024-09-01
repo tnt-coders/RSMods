@@ -864,9 +864,50 @@ namespace Midi {
 				}
 			}
 		}
-		namespace Whammy {
+		namespace WhammyFour {
 			/// <summary>
-			/// Auto Tune and True-Tune with the pedal "Digitech Whammy". Made by PoizenJam.
+			/// Auto Tune and True-Tune with the pedal "Digitech Whammy 4". Whammy 5 Made by PoizenJam, interpolated to Whammy 4 by Ffio.
+			/// </summary>
+			/// <param name="highestTuning"> - Highest tuned string in the current song.</param>
+			/// <param name="TrueTuning_Hertz"> - True Tuning (non-concert pitch)</param>
+			void AutoTuningAndTrueTuning(int highestTuning, float TrueTuning_Hertz) {
+				int temp_PC, temp_CC, offset = 0;
+				float Target_Hertz, Target_Semitones;
+
+				// Find Target Hertz of combined True Tuning and Drop Tuning. If A < 260, double it before calculation.
+				if (TrueTuning_Hertz < 260.0f)
+					Target_Hertz = (float)(TrueTuning_Hertz * 2.0f * powf(2.0f, (highestTuning / 12.0f)));
+				else
+					Target_Hertz = (float)(TrueTuning_Hertz * powf(2.0f, (highestTuning / 12.0f)));
+
+				// Convert Target_Hertz to Semitones(relative to A440)
+				Target_Semitones = (float)(12.0f * log2(Target_Hertz / 440.0f));
+
+				// Calculate PC needed to achieve target Semitones. If-Else block :(
+				if ((roundf(Target_Semitones * 100) / 100) < -24.00f)
+					temp_PC = 7;
+				else if ((roundf(Target_Semitones * 100) / 100) < -12.00f)
+					temp_PC = 6;
+				else if ((roundf(Target_Semitones * 100) / 100) < 0.00f)
+					temp_PC = 5;
+				else if ((roundf(Target_Semitones * 100) / 100) < 12.00f)
+					temp_PC = 4;
+				else
+					temp_PC = 3;
+
+				temp_CC = roundf(Target_Semitones * (127.0f / Digitech::WhammyFour::semiTones.at(temp_PC - 1)));
+
+				// Does the song actually NEED us to do any changes?
+				if (temp_CC != 0) {
+					SendProgramChange(temp_PC + offset - 1);
+					SendControlChange(temp_CC);
+				}
+			}
+		}
+
+		namespace WhammyFive {
+			/// <summary>
+			/// Auto Tune and True-Tune with the pedal "Digitech Whammy 5". Made by PoizenJam.
 			/// </summary>
 			/// <param name="highestTuning"> - Highest tuned string in the current song.</param>
 			/// <param name="TrueTuning_Hertz"> - True Tuning (non-concert pitch)</param>
@@ -909,7 +950,7 @@ namespace Midi {
 				else
 					temp_PC = 1;
 
-				temp_CC = roundf(Target_Semitones * (127.0f / Digitech::Whammy::semiTones.at(temp_PC - 1)));
+				temp_CC = roundf(Target_Semitones * (127.0f / Digitech::WhammyFive::semiTones.at(temp_PC - 1)));
 
 				// Does the song actually NEED us to do any changes?
 				if (temp_CC != 0) {

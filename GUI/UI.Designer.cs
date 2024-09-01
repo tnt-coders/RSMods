@@ -273,8 +273,8 @@
             this.listBox_MidiAutoTuningOffset = new System.Windows.Forms.ListBox();
             this.groupBox_MidiAutoTuneDevice = new System.Windows.Forms.GroupBox();
             this.radio_SoftwarePedal = new System.Windows.Forms.RadioButton();
-            this.radio_Whammy = new System.Windows.Forms.RadioButton();
-            this.checkBox_WhammyChordsMode = new System.Windows.Forms.CheckBox();
+            this.radio_WhammyFive = new System.Windows.Forms.RadioButton();
+            this.checkBox_WhammyFiveChordsMode = new System.Windows.Forms.CheckBox();
             this.radio_WhammyBass = new System.Windows.Forms.RadioButton();
             this.radio_WhammyDT = new System.Windows.Forms.RadioButton();
             this.label_MidiWhatTuningPedalDoYouUse = new System.Windows.Forms.Label();
@@ -539,6 +539,7 @@
             this.label_SettingsSaved = new System.Windows.Forms.Label();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.button_UpdateRSMods = new System.Windows.Forms.Button();
+            this.radio_WhammyFour = new System.Windows.Forms.RadioButton();
             this.groupBox_HowToEnumerate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUpDown_ForceEnumerationXMS)).BeginInit();
             this.groupBox_LoftOffWhen.SuspendLayout();
@@ -2870,8 +2871,8 @@
             // 
             // TabController
             // 
-            this.TabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.TabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TabController.Controls.Add(this.tab_Songlists);
             this.TabController.Controls.Add(this.tab_Keybindings);
@@ -3572,7 +3573,7 @@
             // 
             this.groupBox_MidiAutoTuningWhen.Controls.Add(this.radio_AutoTuningWhenTuner);
             this.groupBox_MidiAutoTuningWhen.Controls.Add(this.radio_AutoTuningWhenManual);
-            this.groupBox_MidiAutoTuningWhen.Location = new System.Drawing.Point(16, 244);
+            this.groupBox_MidiAutoTuningWhen.Location = new System.Drawing.Point(16, 266);
             this.groupBox_MidiAutoTuningWhen.Name = "groupBox_MidiAutoTuningWhen";
             this.groupBox_MidiAutoTuningWhen.Size = new System.Drawing.Size(200, 79);
             this.groupBox_MidiAutoTuningWhen.TabIndex = 100004;
@@ -3646,9 +3647,10 @@
             // 
             // groupBox_MidiAutoTuneDevice
             // 
+            this.groupBox_MidiAutoTuneDevice.Controls.Add(this.radio_WhammyFour);
             this.groupBox_MidiAutoTuneDevice.Controls.Add(this.radio_SoftwarePedal);
-            this.groupBox_MidiAutoTuneDevice.Controls.Add(this.radio_Whammy);
-            this.groupBox_MidiAutoTuneDevice.Controls.Add(this.checkBox_WhammyChordsMode);
+            this.groupBox_MidiAutoTuneDevice.Controls.Add(this.radio_WhammyFive);
+            this.groupBox_MidiAutoTuneDevice.Controls.Add(this.checkBox_WhammyFiveChordsMode);
             this.groupBox_MidiAutoTuneDevice.Controls.Add(this.radio_WhammyBass);
             this.groupBox_MidiAutoTuneDevice.Controls.Add(this.radio_WhammyDT);
             this.groupBox_MidiAutoTuneDevice.Controls.Add(this.label_MidiWhatTuningPedalDoYouUse);
@@ -3656,7 +3658,7 @@
             this.groupBox_MidiAutoTuneDevice.Controls.Add(this.listBox_ListMidiOutDevices);
             this.groupBox_MidiAutoTuneDevice.Location = new System.Drawing.Point(16, 16);
             this.groupBox_MidiAutoTuneDevice.Name = "groupBox_MidiAutoTuneDevice";
-            this.groupBox_MidiAutoTuneDevice.Size = new System.Drawing.Size(315, 222);
+            this.groupBox_MidiAutoTuneDevice.Size = new System.Drawing.Size(315, 245);
             this.groupBox_MidiAutoTuneDevice.TabIndex = 100002;
             this.groupBox_MidiAutoTuneDevice.TabStop = false;
             this.groupBox_MidiAutoTuneDevice.Text = "Midi Device To Tune";
@@ -3666,7 +3668,7 @@
             // radio_SoftwarePedal
             // 
             this.radio_SoftwarePedal.AutoSize = true;
-            this.radio_SoftwarePedal.Location = new System.Drawing.Point(10, 200);
+            this.radio_SoftwarePedal.Location = new System.Drawing.Point(10, 221);
             this.radio_SoftwarePedal.Name = "radio_SoftwarePedal";
             this.radio_SoftwarePedal.Size = new System.Drawing.Size(97, 17);
             this.radio_SoftwarePedal.TabIndex = 7;
@@ -3675,30 +3677,30 @@
             this.radio_SoftwarePedal.UseVisualStyleBackColor = true;
             this.radio_SoftwarePedal.CheckedChanged += new System.EventHandler(this.Save_SoftwarePedal);
             // 
-            // radio_Whammy
+            // radio_WhammyFive
             // 
-            this.radio_Whammy.AutoSize = true;
-            this.radio_Whammy.Location = new System.Drawing.Point(10, 177);
-            this.radio_Whammy.Name = "radio_Whammy";
-            this.radio_Whammy.Size = new System.Drawing.Size(111, 17);
-            this.radio_Whammy.TabIndex = 6;
-            this.radio_Whammy.TabStop = true;
-            this.radio_Whammy.Text = "Digitech Whammy";
-            this.radio_Whammy.UseVisualStyleBackColor = true;
-            this.radio_Whammy.CheckedChanged += new System.EventHandler(this.Save_Whammy);
+            this.radio_WhammyFive.AutoSize = true;
+            this.radio_WhammyFive.Location = new System.Drawing.Point(10, 198);
+            this.radio_WhammyFive.Name = "radio_WhammyFive";
+            this.radio_WhammyFive.Size = new System.Drawing.Size(120, 17);
+            this.radio_WhammyFive.TabIndex = 6;
+            this.radio_WhammyFive.TabStop = true;
+            this.radio_WhammyFive.Text = "Digitech Whammy 5";
+            this.radio_WhammyFive.UseVisualStyleBackColor = true;
+            this.radio_WhammyFive.CheckedChanged += new System.EventHandler(this.Save_WhammyFive);
             // 
-            // checkBox_WhammyChordsMode
+            // checkBox_WhammyFiveChordsMode
             // 
-            this.checkBox_WhammyChordsMode.AutoSize = true;
-            this.checkBox_WhammyChordsMode.Location = new System.Drawing.Point(208, 160);
-            this.checkBox_WhammyChordsMode.Name = "checkBox_WhammyChordsMode";
-            this.checkBox_WhammyChordsMode.Size = new System.Drawing.Size(89, 17);
-            this.checkBox_WhammyChordsMode.TabIndex = 5;
-            this.checkBox_WhammyChordsMode.Text = "Chords Mode";
-            this.checkBox_WhammyChordsMode.UseVisualStyleBackColor = true;
-            this.checkBox_WhammyChordsMode.Visible = false;
-            this.checkBox_WhammyChordsMode.CheckedChanged += new System.EventHandler(this.Save_WhammyChordsMode);
-            this.checkBox_WhammyChordsMode.MouseHover += new System.EventHandler(this.ToolTips_Show);
+            this.checkBox_WhammyFiveChordsMode.AutoSize = true;
+            this.checkBox_WhammyFiveChordsMode.Location = new System.Drawing.Point(212, 198);
+            this.checkBox_WhammyFiveChordsMode.Name = "checkBox_WhammyFiveChordsMode";
+            this.checkBox_WhammyFiveChordsMode.Size = new System.Drawing.Size(89, 17);
+            this.checkBox_WhammyFiveChordsMode.TabIndex = 5;
+            this.checkBox_WhammyFiveChordsMode.Text = "Chords Mode";
+            this.checkBox_WhammyFiveChordsMode.UseVisualStyleBackColor = true;
+            this.checkBox_WhammyFiveChordsMode.Visible = false;
+            this.checkBox_WhammyFiveChordsMode.CheckedChanged += new System.EventHandler(this.Save_WhammyChordsMode);
+            this.checkBox_WhammyFiveChordsMode.MouseHover += new System.EventHandler(this.ToolTips_Show);
             // 
             // radio_WhammyBass
             // 
@@ -4225,7 +4227,6 @@
             this.checkBox_ASIO_InputMic_EnableRefHack.TabIndex = 18;
             this.checkBox_ASIO_InputMic_EnableRefHack.Text = "Enable Ref Count Hack";
             this.checkBox_ASIO_InputMic_EnableRefHack.UseVisualStyleBackColor = true;
-            this.checkBox_ASIO_InputMic_EnableRefHack.CheckedChanged += ASIO_InputMic_EnableRefHack;
             // 
             // button_ASIO_InputMic_ClearSelection
             // 
@@ -4370,7 +4371,6 @@
             this.checkBox_ASIO_Output_EnableRefHack.TabIndex = 19;
             this.checkBox_ASIO_Output_EnableRefHack.Text = "Enable Ref Count Hack";
             this.checkBox_ASIO_Output_EnableRefHack.UseVisualStyleBackColor = true;
-            this.checkBox_ASIO_Output_EnableRefHack.CheckedChanged += ASIO_Output_EnableRefHack;
             // 
             // nUpDown_ASIO_Output_AltBaseChannel
             // 
@@ -4525,7 +4525,6 @@
             this.checkBox_ASIO_Input1_EnableRefHack.TabIndex = 17;
             this.checkBox_ASIO_Input1_EnableRefHack.Text = "Enable Ref Count Hack";
             this.checkBox_ASIO_Input1_EnableRefHack.UseVisualStyleBackColor = true;
-            this.checkBox_ASIO_Input1_EnableRefHack.CheckedChanged += ASIO_Input1_EnableRefHack;
             // 
             // button_ASIO_Input1_ClearSelection
             // 
@@ -4657,7 +4656,6 @@
             this.checkBox_ASIO_Input0_EnableRefHack.TabIndex = 16;
             this.checkBox_ASIO_Input0_EnableRefHack.Text = "Enable Ref Count Hack";
             this.checkBox_ASIO_Input0_EnableRefHack.UseVisualStyleBackColor = true;
-            this.checkBox_ASIO_Input0_EnableRefHack.CheckedChanged += ASIO_Input0_EnableRefHack;
             // 
             // button_ASIO_Input0_ClearSelection
             // 
@@ -6277,8 +6275,8 @@
             this.dgv_Profiles_Songlists.AllowUserToAddRows = false;
             this.dgv_Profiles_Songlists.AllowUserToDeleteRows = false;
             this.dgv_Profiles_Songlists.AllowUserToOrderColumns = true;
-            this.dgv_Profiles_Songlists.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dgv_Profiles_Songlists.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_Profiles_Songlists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Profiles_Songlists.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -6741,6 +6739,18 @@
             this.button_UpdateRSMods.Click += new System.EventHandler(this.CheckForUpdates_UpdateRSMods);
             this.button_UpdateRSMods.MouseHover += new System.EventHandler(this.ToolTips_Show);
             // 
+            // radio_WhammyFour
+            // 
+            this.radio_WhammyFour.AutoSize = true;
+            this.radio_WhammyFour.Location = new System.Drawing.Point(10, 175);
+            this.radio_WhammyFour.Name = "radio_WhammyFour";
+            this.radio_WhammyFour.Size = new System.Drawing.Size(120, 17);
+            this.radio_WhammyFour.TabIndex = 8;
+            this.radio_WhammyFour.TabStop = true;
+            this.radio_WhammyFour.Text = "Digitech Whammy 4";
+            this.radio_WhammyFour.UseVisualStyleBackColor = true;
+            this.radio_WhammyFour.CheckedChanged += new System.EventHandler(this.Save_WhammyFour);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -7094,7 +7104,7 @@
         private System.Windows.Forms.RadioButton radio_WhammyBass;
         private System.Windows.Forms.RadioButton radio_WhammyDT;
         private System.Windows.Forms.Label label_MidiWhatTuningPedalDoYouUse;
-        private System.Windows.Forms.CheckBox checkBox_WhammyChordsMode;
+        private System.Windows.Forms.CheckBox checkBox_WhammyFiveChordsMode;
         private System.Windows.Forms.Label label_SettingsSaved;
         private System.Windows.Forms.CheckBox checkBox_ExtendedRangeDrop;
         private System.Windows.Forms.CheckBox checkBox_ShowCurrentNote;
@@ -7237,7 +7247,7 @@
         private System.Windows.Forms.TabPage tabPage_ModSettings_Misc;
         private System.Windows.Forms.CheckBox checkBox_CustomHighway;
         private System.Windows.Forms.Button button_ResetToDefaultCachePsarc;
-        private System.Windows.Forms.RadioButton radio_Whammy;
+        private System.Windows.Forms.RadioButton radio_WhammyFive;
         private System.Windows.Forms.GroupBox groupBox_SongTimer;
         private System.Windows.Forms.RadioButton radio_SongTimerManual;
         private System.Windows.Forms.RadioButton radio_SongTimerAlways;
@@ -7427,5 +7437,6 @@
         private System.Windows.Forms.CheckBox checkBox_ASIO_Input1_EnableRefHack;
         private System.Windows.Forms.CheckBox checkBox_ASIO_InputMic_EnableRefHack;
         private System.Windows.Forms.CheckBox checkBox_ASIO_Output_EnableRefHack;
+        private System.Windows.Forms.RadioButton radio_WhammyFour;
     }
 }

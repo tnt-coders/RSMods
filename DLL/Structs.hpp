@@ -181,7 +181,7 @@ struct Resolution {
 typedef void (*tuningFunction)(int highestTuning, float TrueTuning_Hertz);
 
 /// <summary>
-/// pedalName, CC_Channel, supportsDropTuning, supportsTrueTuning, semiTones, activeBypassMap, autoTuneFunction, softwarePedal = false
+/// pedalName, CC_Bank, PC_Channel, CC_Channel, supportsDropTuning, supportsTrueTuning, semiTones, activeBypassMap, autoTuneFunction, softwarePedal = false
 /// </summary>
 struct MidiPedal {
 	std::string pedalName;

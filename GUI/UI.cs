@@ -651,11 +651,11 @@ namespace RSMods
                             break;
                         case 2:
                             radio_WhammyBass.Checked = true;
-                            checkBox_WhammyChordsMode.Visible = true;
+                            checkBox_WhammyFiveChordsMode.Visible = true;
                             break;
                         case 3:
-                            radio_Whammy.Checked = true;
-                            checkBox_WhammyChordsMode.Visible = true;
+                            radio_WhammyFive.Checked = true;
+                            checkBox_WhammyFiveChordsMode.Visible = true;
                             break;
                         case 4:
                             radio_SoftwarePedal.Checked = true;
@@ -703,7 +703,7 @@ namespace RSMods
             checkBox_GreenScreen.Checked = ReadSettings.ProcessSettings(ReadSettings.GreenScreenWallIdentifier) == "on";
             checkBox_RainbowStrings.Checked = ReadSettings.ProcessSettings(ReadSettings.RainbowStringsEnabledIdentifier) == "on";
             checkBox_RainbowNotes.Checked = ReadSettings.ProcessSettings(ReadSettings.RainbowNotesEnabledIdentifier) == "on";
-            checkBox_WhammyChordsMode.Checked = ReadSettings.ProcessSettings(ReadSettings.ChordsModeIdentifier) == "on";
+            checkBox_WhammyFiveChordsMode.Checked = ReadSettings.ProcessSettings(ReadSettings.ChordsModeIdentifier) == "on";
             checkBox_ShowCurrentNote.Checked = ReadSettings.ProcessSettings(ReadSettings.ShowCurrentNoteOnScreenIdentifier) == "on";
             checkBox_CustomHighway.Checked = ReadSettings.ProcessSettings(ReadSettings.CustomHighwayColorsIdentifier) == "on";
             checkBox_SecondaryMonitor.Checked = ReadSettings.ProcessSettings(ReadSettings.SecondaryMonitorIdentifier) == "on";
@@ -2215,18 +2215,20 @@ namespace RSMods
         private void Save_WhammyBass(object sender, EventArgs e)
         {
             SaveSettings_Save(ReadSettings.TuningPedalIdentifier, "2");
-            checkBox_WhammyChordsMode.Visible = radio_WhammyBass.Checked;
+            checkBox_WhammyFiveChordsMode.Visible = radio_WhammyBass.Checked;
         }
 
-        private void Save_Whammy(object sender, EventArgs e)
+        private void Save_WhammyFive(object sender, EventArgs e)
         {
             SaveSettings_Save(ReadSettings.TuningPedalIdentifier, "3");
-            checkBox_WhammyChordsMode.Visible = radio_Whammy.Checked;
+            checkBox_WhammyFiveChordsMode.Visible = radio_WhammyFive.Checked;
         }
+
+        private void Save_WhammyFour(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.TuningPedalIdentifier, "5");
 
         private void Save_SoftwarePedal(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.TuningPedalIdentifier, "4");
 
-        private void Save_WhammyChordsMode(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.ChordsModeIdentifier, checkBox_WhammyChordsMode.Checked.ToString().ToLower());
+        private void Save_WhammyChordsMode(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.ChordsModeIdentifier, checkBox_WhammyFiveChordsMode.Checked.ToString().ToLower());
 
         private void Save_ExtendedRangeDrop(object sender, EventArgs e) => SaveSettings_Save(ReadSettings.ExtendedRangeDropTuningIdentifier, checkBox_ExtendedRangeDrop.Checked.ToString().ToLower());
 
