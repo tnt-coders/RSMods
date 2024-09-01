@@ -895,7 +895,7 @@ namespace Midi {
 				else
 					temp_PC = 3;
 
-				temp_CC = roundf(Target_Semitones * (127.0f / Digitech::WhammyFour::semiTones.at(temp_PC - 1)));
+				temp_CC = roundf(Target_Semitones * (127.0f / Digitech::WhammyFour::semiTones.at(temp_PC - 3)));
 
 				// Does the song actually NEED us to do any changes?
 				if (temp_CC != 0) {
