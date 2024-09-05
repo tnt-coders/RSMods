@@ -23,7 +23,6 @@ namespace MemHelpers {
 	byte* GetCurrentTuning(bool verbose = false);
 	void ToggleLoft();
 	float SongTimer();
-	bool IsExtendedRangeSong();
 	int* GetHighestLowestString();
 	int* GetHighestLowestString(Tuning tuningOverride);
 	bool IsSongInDrop(Tuning tuning);
@@ -35,7 +34,6 @@ namespace MemHelpers {
 	void ToggleDrunkMode(bool enable);
 	bool IsInSong();
 	Tuning GetTuningAtTuner();
-	bool IsExtendedRangeTuner();
 	bool IsMultiplayer();
 	std::string CurrentSelectedUser();
 	std::string GetSongKey();

@@ -256,6 +256,8 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM keyPressed, LPARAM lParam) {
 
 				MemHelpers::ToggleCB(D3DHooks::UseERExclusivelyInThisSong);
 
+				generateTexture = true;
+
 				_LOG("Triggered Mod: Toggle Extended Range" << std::endl);
 			}
 
@@ -991,11 +993,10 @@ Wwise::SoundEngine::SetRTPCValue("P1_InputVol_Calibration_Return", NewInputVolum
 
 		// Regenerate string colors when the user changes their string colors in the GUI.
 		// Needed to have real-time textures.
-		if (generateTextureCounter++ > 1000) {
+		if (generateTexture) {
 			D3D::GenerateTextures(pDevice, D3D::Strings);
 			D3D::GenerateTextures(pDevice, D3D::Notes);
 
-			generateTextureCounter = 0;
 			generateTexture = false;
 		}
 	}
@@ -1542,7 +1543,7 @@ unsigned WINAPI MainThread() {
 				if (!AttemptedERInThisSong) {
 					if (!skipERSleep)
 						Sleep(1500); // Tuning takes a second, or so, to get set by the game. We use this to make sure we have the right tuning numbers. Otherwise, we would never get ER mode to turn on properly.
-					UseERExclusivelyInThisSong = MemHelpers::IsExtendedRangeSong();
+					UseERExclusivelyInThisSong = true;
 					UseEROrColorsInThisSong = (Settings::ReturnSettingValue("ExtendedRangeEnabled") == "on" && UseERExclusivelyInThisSong || Settings::GetModSetting("CustomStringColors") == 2 || (Settings::ReturnSettingValue("SeparateNoteColors") == "on" && Settings::GetModSetting("SeparateNoteColorsMode") != 1));
 					AttemptedERInThisSong = true;
 				}
@@ -1558,7 +1559,7 @@ unsigned WINAPI MainThread() {
 						if (!skipERSleep)
 							Sleep(1500); // Tuning takes a second, or so, to get set by the game. We use this to make sure we have the right tuning numbers. Otherwise, we would never get ER mode to turn on properly.
 						AttemptedERInTuner = true;
-						UseERInTuner = MemHelpers::IsExtendedRangeTuner();
+						UseERInTuner = true;
 					}
 				}
 				else {
