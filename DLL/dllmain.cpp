@@ -237,23 +237,21 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM keyPressed, LPARAM lParam) {
 					case ER::DISABLED:
 					{
 						Settings::extendedRange = ER::ER1;
-						D3DHooks::UseERExclusivelyInThisSong = true;
 						break;
 					}
 					case ER::ER1:
 					{
 						Settings::extendedRange = ER::ER2;
-						D3DHooks::UseERExclusivelyInThisSong = true;
 						break;
 					}
 					case ER::ER2:
 					{
 						Settings::extendedRange = ER::DISABLED;
-						D3DHooks::UseERExclusivelyInThisSong = false;
 						break;
 					}
 				}
 
+				D3DHooks::UseERExclusivelyInThisSong = true;
 				MemHelpers::ToggleCB(D3DHooks::UseERExclusivelyInThisSong);
 
 				generateTexture = true;

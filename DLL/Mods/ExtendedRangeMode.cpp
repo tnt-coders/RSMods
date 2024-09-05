@@ -189,6 +189,18 @@ void ERMode::Toggle7StringMode() {
 					SetColors(stringsBodyNorm, "BodyNorm_ER2");
 					SetColors(stringsBodyAcc, "BodyAcc_ER2");
 				}
+				else if (Settings::extendedRange == ER::DISABLED)
+				{
+					SetColors(stringsEnabled, "Enabled_N");
+					SetColors(stringsGlow, "Glow_N");
+					SetColors(stringsDisabled, "Disabled_N");
+					SetColors(stringsText, "TextIndicator_N");
+					SetColors(pegsTuning, "PegsTuning_N");
+					SetColors(stringsPegInTune, "PegsInTune_N");
+					SetColors(stringsPegNotInTune, "PegsOutTune_N");
+					SetColors(stringsBodyNorm, "BodyNorm_N");
+					SetColors(stringsBodyAcc, "BodyAcc_N");
+				}
 				
 				break;
 			default:
