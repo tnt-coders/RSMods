@@ -191,7 +191,43 @@ namespace Midi {
 			void AutoTuningAndTrueTuning(int highestTuning, float TrueTuning_Hertz);
 		}
 
-		namespace Whammy {
+		// Documentation for this is hard to find because not many places call it the "Whammy 4" / "Whammy V4" etc.
+		// Here is a link to a Whammy 4 manual that I was able to find for future reference.
+		// https://www.manualslib.com/manual/380879/Digitech-Whammy.html
+		namespace WhammyFour {
+			inline std::map<char, char> activeBypassMap = {
+				// Classic Mode
+
+				// Detune
+				{1, 18}, // Shallow
+				{2, 19}, // Deep
+
+				{3, 20}, // +2 OCT
+				{4, 21}, // +1 OCT
+				{5, 22}, // -1 OCT
+				{6, 23}, // -2 OCT
+				{7, 24}, // Dive Bomb  (-3 OCT)
+				{8, 25}, // Drop Tune (- 2 semitones || OPPOSITE)
+
+				// Harmony (Up Pos || Down Pos)
+				{9, 26}, // -OCT || +OCT
+				{10, 27}, // -5th || -4th
+				{11, 28}, // -4th || -3rd
+				{12, 29}, // +5th || +7th
+				{13, 30}, // +5th || +6th
+				{14, 31}, // +4th || +5th
+				{15, 32}, // +3rd || +4th
+				{16, 33}, // +b3rd || +3rd
+				{17, 34}, // +2nd || +3rd
+			};
+			inline std::vector<float> semiTones = {
+				24.0f, 12.0f, -12.0f, -24.0f, -36.0f
+			};
+
+			void AutoTuningAndTrueTuning(int highestTuning, float TrueTuning_Hertz);
+		}
+
+		namespace WhammyFive {
 			inline std::map<char, char> activeBypassMap = {
 				// Classic Mode
 
@@ -287,11 +323,14 @@ namespace Midi {
 		inline bool sentSemitoneInThisSong = false;
 	}
 
+	// Always add to the end of this list, even if it makes sense logically to put it in the middle.
+	// The order of this list is driven by setting data, so if you put something in the middle it ruins everyone's settings using a lower option.
 	inline std::vector<MidiPedal> supportedPedals = {
 		MidiPedal("DIGITECH Whammy DT", 11, 0, 0, true, true, Digitech::WhammyDT::semiTones, Digitech::WhammyDT::activeBypassMap, Digitech::WhammyDT::AutoTuning),
 		MidiPedal("DIGITECH Bass Whammy", 11, 0, 0, true, true, Digitech::BassWhammy::semiTones, Digitech::BassWhammy::activeBypassMap, Digitech::BassWhammy::AutoTuningAndTrueTuning),
-		MidiPedal("DIGITECH Whammy", 11, 0, 0, true, true, Digitech::Whammy::semiTones, Digitech::Whammy::activeBypassMap, Digitech::Whammy::AutoTuningAndTrueTuning),
+		MidiPedal("DIGITECH Whammy 5", 11, 0, 0, true, true, Digitech::WhammyFive::semiTones, Digitech::WhammyFive::activeBypassMap, Digitech::WhammyFive::AutoTuningAndTrueTuning),
 		MidiPedal("Software Pedal", 0, 0, 0, true, true, std::vector<float>{}, Software::semiToneMap, Software::AutoTuning, true),
+		MidiPedal("DIGITECH Whammy 4", 11, 0, 0, true, true, Digitech::WhammyFour::semiTones, Digitech::WhammyFour::activeBypassMap, Digitech::WhammyFour::AutoTuningAndTrueTuning),
 	};
 };
 
